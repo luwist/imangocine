@@ -290,6 +290,10 @@ erDiagram
 
 <img src="./public/images/home.png" />
 
+### Inicio de sesión
+
+<img src="./public/images/login.png" />
+
 ### Detalle de la película
 
 <img src="./public/images/movie-detail.png" />
