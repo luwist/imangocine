@@ -1,0 +1,176 @@
+<p-toast position="bottom-center" />
+
+<div class="seats-step">
+  <div class="seats-step__map">
+    <div class="seats-step__screen">
+      <!-- <img src="icons/screen.svg" alt="" /> -->
+      <svg
+        width="1308"
+        height="29"
+        viewBox="0 0 1308 29"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M1308 29V17S909.618 0 654 0 0 17 0 17v12s392.4-17 654-17c250.922 0 654 17 654 17"
+          fill="#1d51fe"
+          fill-opacity=".3"
+        />
+      </svg>
+
+      <span class="seats-step__screen-label">Pantalla</span>
+    </div>
+
+    <div class="seats-step__grid">
+      @for (seatRow of rows(); track seatRow.row) {
+        <div class="seats-step__row" [class.seats-step__row--gap-after]="seatRow.row === 'J'">
+          <span class="seats-step__row-label">{{ seatRow.row }}</span>
+
+          @for (block of seatRow.blocks; track $index) {
+            <div
+              class="seats-step__block"
+              [class.seats-step__block--side]="$index === 0 || $index === 2"
+              [class.seats-step__block--center]="$index === 1"
+            >
+              @for (seat of block; track seat.code) {
+                <button
+                  class="seats-step__seat"
+                  [class.seats-step__seat--vip]="seat.type === 'vip'"
+                  [class.seats-step__seat--accessible]="seat.type === 'accessible'"
+                  [class.seats-step__seat--occupied]="seat.status === 'occupied'"
+                  [class.seats-step__seat--selected]="seat.status === 'selected'"
+                  [disabled]="seat.status === 'occupied'"
+                  (click)="toggleSeat(seat)"
+                >
+                  @if (seat.status === 'occupied') {
+                    <svg
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <g clip-path="url(#clip0_226_1506)">
+                        <mask
+                          id="mask0_226_1506"
+                          style="mask-type: luminance"
+                          maskUnits="userSpaceOnUse"
+                          x="0"
+                          y="0"
+                          width="24"
+                          height="24"
+                        >
+                          <path d="M24 0H0V24H24V0Z" fill="white" />
+                        </mask>
+                        <g mask="url(#mask0_226_1506)">
+                          <path
+                            d="M16.7755 8.28766L8.29021 16.7729C8.0003 17.0629 7.51946 17.0629 7.22955 16.7729C6.93964 16.483 6.93964 16.0022 7.22955 15.7123L15.7148 7.227C16.0047 6.93709 16.4856 6.93709 16.7755 7.227C17.0654 7.51692 17.0654 7.99775 16.7755 8.28766Z"
+                            fill="#8697AC"
+                          />
+                          <path
+                            d="M16.7755 16.773C16.4856 17.0629 16.0047 17.0629 15.7148 16.773L7.22955 8.28772C6.93964 7.9978 6.93964 7.51697 7.22955 7.22706C7.51946 6.93714 8.0003 6.93714 8.29021 7.22706L16.7755 15.7123C17.0654 16.0023 17.0654 16.4831 16.7755 16.773Z"
+                            fill="#8697AC"
+                          />
+                        </g>
+                      </g>
+                    </svg>
+                  } @else if (seat.type === 'accessible') {
+                    <svg
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M20.39 20.14L18.33 11.82L18.19 11.25H14.97V8.31H17.19V6.81H7.19V1.25H2.36V2.75H5.69V10.41C3.12 11.21 1.25 13.61 1.25 16.44C1.25 19.92 4.08 22.75 7.56 22.75C9.96 22.75 12.06 21.4 13.12 19.42H18.66L19.07 21.07L19.21 21.64H22.75V20.14H20.39ZM7.19 8.31H13.47V11.25H11.14C10.0901 10.5177 8.84006 10.1267 7.56 10.13C7.43 10.13 7.31 10.13 7.19 10.15V8.31ZM7.56 21.25C4.9 21.25 2.75 19.1 2.75 16.44C2.75 13.78 4.7 11.83 7.19 11.64C7.31 11.63 7.43 11.63 7.56 11.63C8.74 11.63 9.81 12.05 10.65 12.75C11.7 13.64 12.37 14.96 12.37 16.44C12.37 19.1 10.22 21.25 7.56 21.25ZM13.69 17.92C13.8113 17.4361 13.8718 16.9389 13.87 16.44C13.87 15.06 13.43 13.79 12.67 12.75H17.01L18.29 17.92H13.69Z"
+                        fill="white"
+                      />
+                    </svg>
+                  } @else {
+                    {{ seat.code }}
+                  }
+                </button>
+              }
+            </div>
+          }
+
+          <span class="seats-step__row-label">{{ seatRow.row }}</span>
+        </div>
+      }
+    </div>
+  </div>
+
+  <div class="seats-step__footer">
+    <div class="seats-step__legend-item">
+      <span class="seats-step__legend-swatch seats-step__legend-swatch--vip"></span>
+      <span class="seats-step__legend-label">VIP</span>
+    </div>
+    <div class="seats-step__legend-item">
+      <span class="seats-step__legend-swatch seats-step__legend-swatch--available"></span>
+      <span class="seats-step__legend-label">Disponible</span>
+    </div>
+    <div class="seats-step__legend-item">
+      <span class="seats-step__legend-swatch seats-step__legend-swatch--selected"></span>
+      <span class="seats-step__legend-label">Seleccionado</span>
+    </div>
+    <div class="seats-step__legend-item">
+      <span class="seats-step__legend-swatch seats-step__legend-swatch--occupied">
+        <svg
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <g clip-path="url(#clip0_162_2265)">
+            <mask
+              id="mask0_162_2265"
+              style="mask-type: luminance"
+              maskUnits="userSpaceOnUse"
+              x="0"
+              y="0"
+              width="24"
+              height="24"
+            >
+              <path d="M24 0H0V24H24V0Z" fill="white" />
+            </mask>
+            <g mask="url(#mask0_162_2265)">
+              <path
+                d="M16.7755 8.28772L8.29021 16.773C8.0003 17.0629 7.51946 17.0629 7.22955 16.773C6.93964 16.4831 6.93964 16.0023 7.22955 15.7123L15.7148 7.22706C16.0047 6.93715 16.4856 6.93715 16.7755 7.22706C17.0654 7.51698 17.0654 7.99781 16.7755 8.28772Z"
+                fill="#FFFFFF"
+              />
+              <path
+                d="M16.7755 16.7729C16.4856 17.0628 16.0047 17.0628 15.7148 16.7729L7.22955 8.28765C6.93964 7.99774 6.93964 7.51691 7.22955 7.22699C7.51946 6.93708 8.0003 6.93708 8.29021 7.22699L16.7755 15.7123C17.0654 16.0022 17.0654 16.483 16.7755 16.7729Z"
+                fill="#FFFFFF"
+              />
+            </g>
+          </g>
+          <defs>
+            <clipPath id="clip0_162_2265">
+              <rect width="24" height="24" fill="white" />
+            </clipPath>
+          </defs>
+        </svg>
+      </span>
+      <span class="seats-step__legend-label">Ocupado</span>
+    </div>
+    <div class="seats-step__legend-item">
+      <span class="seats-step__legend-swatch seats-step__legend-swatch--accessible">
+        <svg
+          width="16"
+          height="16"
+          viewBox="0 0 16 16"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M13.593 13.4267L12.2197 7.88004L12.1263 7.50004H9.97968V5.54004H11.4597V4.54004H4.79301V0.833374H1.57301V1.83337H3.79301V6.94004C2.07967 7.47337 0.833008 9.07337 0.833008 10.96C0.833008 13.28 2.71967 15.1667 5.03967 15.1667C6.63967 15.1667 8.03967 14.2667 8.74634 12.9467H12.4397L12.713 14.0467L12.8063 14.4267H15.1663V13.4267H13.593ZM4.79301 5.54004H8.97968V7.50004H7.42634C6.72639 7.01187 5.89305 6.75116 5.03967 6.75337C4.95301 6.75337 4.87301 6.75337 4.79301 6.76671V5.54004ZM5.03967 14.1667C3.26634 14.1667 1.83301 12.7334 1.83301 10.96C1.83301 9.18671 3.13301 7.88671 4.79301 7.76004C4.87301 7.75337 4.95301 7.75337 5.03967 7.75337C5.82634 7.75337 6.53967 8.03337 7.09967 8.50004C7.79967 9.09337 8.24634 9.97337 8.24634 10.96C8.24634 12.7334 6.81301 14.1667 5.03967 14.1667ZM9.12634 11.9467C9.20721 11.6241 9.24752 11.2926 9.24634 10.96C9.24634 10.04 8.95301 9.19337 8.44634 8.50004H11.3397L12.193 11.9467H9.12634Z"
+            fill="white"
+          />
+        </svg>
+      </span>
+      <span class="seats-step__legend-label">Silla de Ruedas</span>
+    </div>
+  </div>
+</div>

@@ -1,5 +1,6 @@
-import { Component, signal } from '@angular/core';
+import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import Aura from '@openng/optimus-ui-themes/aura';
 
 @Component({
   imports: [RouterOutlet],
@@ -7,4 +8,8 @@ import { RouterOutlet } from '@angular/router';
   styleUrl: './app.scss',
   templateUrl: './app.html',
 })
-export class App {}
+export class App {
+  ngOnInit() {
+    console.log(Aura);
+  }
+}

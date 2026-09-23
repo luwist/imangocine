@@ -1,0 +1,85 @@
+<section
+  class="hero"
+  aria-roledescription="carousel"
+  aria-label="Películas más vendidas"
+  (mouseenter)="paused.set(true)"
+  (mouseleave)="paused.set(false)"
+  (focusin)="paused.set(true)"
+  (focusout)="paused.set(false)"
+>
+  <div class="hero__stage">
+    @if (movies().length > 1) {
+      <button
+        type="button"
+        class="hero__arrow hero__arrow--prev"
+        aria-label="Película anterior"
+        (click)="prev()"
+      >
+        <svg class="hero__icon" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M15 5l-7 7 7 7" />
+        </svg>
+      </button>
+      <button
+        type="button"
+        class="hero__arrow hero__arrow--next"
+        aria-label="Película siguiente"
+        (click)="next()"
+      >
+        <svg class="hero__icon" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M9 5l7 7-7 7" />
+        </svg>
+      </button>
+    }
+
+    <div class="hero__slides">
+      @for (movie of movies(); track movie.slug; let i = $index) {
+        <article
+          class="hero__slide"
+          [class.hero__slide--active]="i === current()"
+          role="group"
+          aria-roledescription="slide"
+          [attr.aria-label]="i + 1 + ' de ' + movies().length"
+          [attr.inert]="i !== current() ? '' : null"
+        >
+          <div class="hero__content">
+            <h1 class="hero__title">{{ movie.title }}</h1>
+            <p class="hero__synopsis">{{ movie.synopsis }}</p>
+
+            <ul class="hero__badges">
+              @if (movie.rating; as rating) {
+                <li class="hero__badge">
+                  {{ rating.toFixed(1) }}
+                  <svg class="hero__star" viewBox="0 0 24 24" aria-hidden="true">
+                    <path
+                      d="M12 3.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9l-5.2 2.7 1-5.8L3.5 9.7l5.9-.9z"
+                    />
+                  </svg>
+                </li>
+              }
+              <li class="hero__badge">{{ ageLabel(movie.age_restriction) }}</li>
+            </ul>
+
+            <a pButton [routerLink]="['/movie', movie.slug]">Comprar entrada</a>
+          </div>
+
+          <img class="hero__poster" [src]="movie.poster" [alt]="'Póster de ' + movie.title" />
+        </article>
+      }
+    </div>
+  </div>
+
+  @if (movies().length > 1) {
+    <div class="hero__dots">
+      @for (movie of movies(); track movie.slug; let i = $index) {
+        <button
+          type="button"
+          class="hero__dot"
+          [class.hero__dot--active]="i === current()"
+          [attr.aria-label]="'Ir a ' + movie.title"
+          [attr.aria-current]="i === current()"
+          (click)="goTo(i)"
+        ></button>
+      }
+    </div>
+  }
+</section>

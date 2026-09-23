@@ -1,0 +1,41 @@
+<button type="button" pButton (click)="onOpen()">
+  <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path
+      d="M5 10H15"
+      stroke="white"
+      stroke-width="1.25"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
+    <path
+      d="M10 15V5"
+      stroke="white"
+      stroke-width="1.25"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
+  </svg>
+
+  Nuevo combo
+</button>
+
+<p-drawer [(visible)]="visible" header="Nuevo producto" [closable]="false" position="right">
+  <p>
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+    labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+    laboris nisi ut aliquip ex ea commodo consequat.
+  </p>
+  <ng-template #footer>
+    <div class="flex items-center gap-2">
+      <button pButton label="Account" icon="pi pi-user" class="w-full" outlined></button>
+      <button
+        pButton
+        label="Logout"
+        icon="pi pi-sign-out"
+        class="w-full"
+        severity="danger"
+        text
+      ></button>
+    </div>
+  </ng-template>
+</p-drawer>

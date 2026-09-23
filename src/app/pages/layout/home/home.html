@@ -1,0 +1,44 @@
+<app-hero [movies]="topMovies()" />
+
+<div class="movies">
+  <h2 class="movies__heading">Películas en cartelera</h2>
+
+  <div class="movies__list">
+    @if (loading()) {
+      @for (item of skeletonItems; track $index) {
+        <div class="movies__item movies__item--skeleton">
+          <p-skeleton class="movies__poster" height="358px" />
+          <p-skeleton width="128px" height="20px" borderRadius="50px" />
+        </div>
+      }
+    } @else {
+      @for (movie of movies(); track movie.slug) {
+        <a class="movie__card" [routerLink]="['movie', movie.slug]">
+          <div class="movie__image">
+            <img [src]="movie.poster" [alt]="movie.title" class="movie__poster" />
+            <span class="movie__badge movie__badge--left">
+              @switch (movie.age_restriction) {
+                @case (18) {
+                  +18
+                }
+
+                @case (13) {
+                  +13
+                }
+
+                @case (0) {
+                  ATP
+                }
+              }
+            </span>
+
+            <span class="movie__badge movie__badge--right">{{
+              movie.duration | minuteToHours
+            }}</span>
+          </div>
+          <h2 class="movie__title">{{ movie.title }}</h2>
+        </a>
+      }
+    }
+  </div>
+</div>

@@ -1,0 +1,119 @@
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.combo-card {
+  background-color: #1D1D1D;
+  border: 1px solid #252527;
+  border-radius: 16px;
+  padding: 12px;
+  width: 100%;
+  max-width: 384px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 20px;
+  color: #f8fafc;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.combo-card__header {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  position: relative;
+}
+
+.combo-card__image {
+  border-radius: 8px;
+  width: 100%;
+  height: 247px;
+  object-fit: cover;
+
+  &.combo-card__image--disabled {
+    filter: grayscale(1);
+    opacity: 0.5;
+  }
+}
+
+.combo-card__info {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  gap: 4px;
+}
+
+.combo-card__title {
+  margin: 0;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 600;
+  color: #FFFFFF;
+}
+
+.combo-card__description {
+  margin: 0;
+  font-size: 14px;
+  line-height: 20px;
+  height: 40px;
+  color: #BABABA;
+}
+
+.combo-card__footer {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  padding-top: 12px;
+  margin-top: 4px;
+}
+
+/* Precios */
+.combo-card__pricing {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.combo-card__price {
+  font-size: 16px;
+  font-weight: 700;
+  color: #1D51FE;
+}
+
+.combo-card__savings {
+  font-size: 0.75rem;
+  color: #34d399; /* Verde brillante para indicar ahorro */
+  font-weight: 500;
+}
+
+/* Metadatos (Destacado y Switch) */
+.combo-card__meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 10px;
+}
+
+/* Insignia de Destacado */
+.combo-card__featured {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: #fbbf24; /* Amarillo estrella */
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.combo-card__featured--inactive {
+  color: #64748b; /* Gris apagado cuando no está destacado */
+}
+
+/* ------------------------------------------------------------------
+   Modificador de Tarjeta Inactiva (Opcional)
+   ------------------------------------------------------------------ */
+.combo-card--inactive {
+  opacity: 0.75;
+  background-color: #0f172a;
+}

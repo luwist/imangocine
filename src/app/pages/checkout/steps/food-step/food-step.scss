@@ -1,0 +1,133 @@
+.food-step {
+  width: 100%;
+  max-width: 1680px;
+  margin: 0 auto;
+  padding: 40px 0;
+
+  &__section-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: hsl(0, 0%, 100%);
+  }
+  
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+    margin-bottom: 40px;
+    margin-top: 24px;
+
+    @media (max-width: 1200px) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    @media (max-width: 860px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media (max-width: 520px) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  &__card {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    background: transparent;
+    border: none;
+    font-family: inherit;
+    padding: 0;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+
+    &:hover:not(:disabled) {
+      transform: scale(1.02);
+    }
+
+    &:disabled {
+      cursor: not-allowed;
+    }
+
+    &--skeleton {
+      cursor: default;
+      pointer-events: none;
+    }
+
+    &--soldout {
+      .food-step__card-image img {
+        filter: grayscale(1);
+        opacity: 0.5;
+      }
+    }
+  }
+
+  &__card-image {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 12px;
+    border-radius: 12px;
+    height: 247px;
+    width: 100%;
+    overflow: hidden;
+    
+    img {
+      width: 100%;
+      border-radius: 12px;
+      height: 100%;
+      object-fit: cover;
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    .food-step__card--skeleton & {
+      padding: 0;
+      background: none;
+      transition: none;
+    }
+  }
+
+  &__card-badge {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.75);
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 700;
+  }
+
+  &__card-body {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  &__card-name {
+    font-size: 16px;
+    font-weight: 700;
+    color: #ffffff;
+    margin: 0;
+  }
+
+  &__card-description {
+    font-size: 14px;
+    line-height: 20px;
+    height: 40px;
+    color: #BABABA;
+    margin: 0;
+    text-overflow: ellipsis;
+    // white-space: nowrap;
+    overflow: hidden;
+  }
+
+  &__card-price {
+    font-size: 16px;
+    font-weight: 700;
+    color: #1d51fe;
+    margin-top: 12px;
+  }
+}

@@ -1,0 +1,17 @@
+.movies__info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  .movies__poster {
+    width: 44px;
+    height: 56px;
+    object-fit: cover;
+    background-color: hsla(0, 0%, 0%, 0.2);
+    border-radius: 6px;
+  }
+
+  .movies__title {
+    font-size: 14px;
+  }
+}

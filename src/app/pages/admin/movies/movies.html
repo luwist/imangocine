@@ -1,0 +1,76 @@
+<div class="container__header">
+  <h1 class="container__title">Películas</h1>
+
+  <a pButton routerLink="create">
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path
+        d="M5 10H15"
+        stroke="white"
+        stroke-width="1.25"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+      <path
+        d="M10 15V5"
+        stroke="white"
+        stroke-width="1.25"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+    </svg>
+
+    Nueva película
+  </a>
+</div>
+
+<p-table [value]="loading() ? skeletonRows : movies()" [paginator]="!loading()" [rows]="6">
+  <ng-template #header>
+    <tr>
+      <th>Película</th>
+      <th>Duración</th>
+      <th>Estreno</th>
+      <th>Clasificación</th>
+      <th>Géneros</th>
+    </tr>
+  </ng-template>
+
+  <ng-template #body let-movie>
+    <tr>
+      @if (loading()) {
+        <td>
+          <div class="movies__info">
+            <p-skeleton width="44px" height="56px" borderRadius="6px" />
+            <p-skeleton width="140px" height="16px" />
+          </div>
+        </td>
+        <td><p-skeleton width="70px" height="16px" borderRadius="50px" /></td>
+        <td><p-skeleton width="110px" height="16px" borderRadius="50px" /></td>
+        <td><p-skeleton width="40px" height="16px" borderRadius="50px" /></td>
+        <td><p-skeleton width="160px" height="16px" borderRadius="50px" /></td>
+      } @else {
+        <td>
+          <div class="movies__info">
+            <img [src]="movie.poster" [alt]="movie.title" class="movies__poster" />
+            <span>{{ movie.title }}</span>
+          </div>
+        </td>
+        <td>{{ movie.duration | minuteToHours }}</td>
+        <td>{{ movie.released | date: 'longDate' }}</td>
+        <td>
+          @switch (movie.age_restriction) {
+            @case (0) {
+              ATP
+            }
+            @case (13) {
+              +13
+            }
+            @case (18) {
+              +18
+            }
+          }
+        </td>
+        <td>{{ movie.genres.map((g) => g.name).join(', ') }}</td>
+      }
+    </tr>
+  </ng-template>
+</p-table>

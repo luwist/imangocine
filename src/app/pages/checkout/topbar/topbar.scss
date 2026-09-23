@@ -1,0 +1,119 @@
+.checkout-topbar {
+  width: 100%;
+  max-width: 1680px;
+  margin: 0 auto;
+  position: relative;
+  height: 84px;
+  padding: 0 80px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  &__back {
+    background: transparent;
+    border: none;
+    color: #fff;
+    font-size: 20px;
+    cursor: pointer;
+    padding: 8px;
+
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+
+  &__breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  &__step {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 14px;
+
+    &--active {
+      color: #fff;
+      font-weight: 600;
+    }
+  }
+
+  &__separator {
+    color: rgba(255, 255, 255, 0.3);
+    font-size: 14px;
+  }
+
+  &__actions {
+    display: flex;
+    align-items: center;
+  }
+
+  &__avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  &__register {
+    padding: 0.5rem 1.25rem;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    background: transparent;
+    color: #fff;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+
+    &:hover {
+      opacity: 0.85;
+    }
+  }
+
+  &__movie-card {
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translate(-50%, 50%);
+    display: flex;
+    gap: 16px;
+    padding: 16px 20px;
+    background: rgba(20, 20, 30, 0.9);
+    border-radius: 12px;
+    backdrop-filter: blur(6px);
+  }
+
+  &__movie-poster {
+    width: 48px;
+    height: 68px;
+    border-radius: 6px;
+    object-fit: cover;
+    flex-shrink: 0;
+  }
+
+  &__movie-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  &__movie-title {
+    margin: 0 0 6px;
+    font-size: 16px;
+    font-weight: 700;
+    color: #fff;
+  }
+
+  &__movie-meta {
+    display: flex;
+    gap: 16px;
+  }
+
+  &__movie-meta-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.7);
+  }
+}

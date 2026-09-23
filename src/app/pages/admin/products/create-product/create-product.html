@@ -1,0 +1,61 @@
+<button type="button" pButton (click)="onOpen()">
+  <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path
+      d="M5 10H15"
+      stroke="white"
+      stroke-width="1.25"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
+    <path
+      d="M10 15V5"
+      stroke="white"
+      stroke-width="1.25"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
+  </svg>
+
+  Nuevo combo
+</button>
+
+<p-drawer [(visible)]="visible" header="Nuevo producto" [closable]="false" position="right">
+  <div class="fields">
+    <div class="field">
+      <label class="field__label">Nombre</label>
+
+      <input pInputText placeholder="Nombre" />
+    </div>
+
+    <div class="field">
+      <label class="field__label">Precio</label>
+
+      <input pInputText placeholder="Precio" />
+    </div>
+
+    <div class="field">
+      <label class="field__label">Categoria</label>
+
+      <p-select [options]="productCategories()" optionLabel="name" placeholder="Select a City" />
+    </div>
+
+    <div class="field">
+      <label class="field__label">Descripción</label>
+
+      <textarea pTextarea [autoResize]="true" placeholder="Descripción"></textarea>
+    </div>
+  </div>
+  <ng-template #footer>
+    <div class="flex items-center gap-2">
+      <button pButton label="Account" icon="pi pi-user" class="w-full" outlined></button>
+      <button
+        pButton
+        label="Logout"
+        icon="pi pi-sign-out"
+        class="w-full"
+        severity="danger"
+        text
+      ></button>
+    </div>
+  </ng-template>
+</p-drawer>

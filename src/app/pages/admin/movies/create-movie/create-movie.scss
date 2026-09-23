@@ -1,0 +1,61 @@
+.poster-card {
+  width: 270px;
+  height: 400px;
+  background-color: #1D1D1D;
+  border-radius: 20px;
+}
+
+.content {
+  display: flex;
+  gap: 40px;
+
+  .fields {
+    flex-grow: 1;
+  }
+}
+
+.footer {
+  width: 100%;
+  margin-top: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: end;
+}
+
+.genre-picker {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+
+  &__chip {
+    height: 44px;
+    padding: 0 16px;
+    border: 1px solid #252527;
+    border-radius: 50px;
+    background: #1D1D1D;
+    color: #fff;
+    font: inherit;
+    font-size: 14px;
+    cursor: pointer;
+    transition:
+      background 0.15s,
+      border-color 0.15s;
+
+    &:hover {
+      border-color: #323234;
+    }
+
+    &:focus-visible {
+      outline-offset: 2px;
+    }
+
+    &--selected {
+      background: #1D51FE;
+      border-color: #1D51FE;
+
+      &:hover {
+        border-color: #1D51FE;
+      }
+    }
+  }
+}

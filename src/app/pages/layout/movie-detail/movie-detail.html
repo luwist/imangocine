@@ -1,0 +1,149 @@
+<div class="wrapper">
+  @if (movie()) {
+    <section class="detail">
+      <div class="detail__info">
+        <h1 class="detail__title">{{ movie().title }}</h1>
+
+        <p class="detail__meta">
+          {{ movie().released | date: 'yyyy' }} | {{ movie().duration }}min
+        </p>
+
+        <div
+          class="detail__synopsis-wrapper"
+          [class.detail__synopsis-wrapper--expanded]="isExpanded()"
+        >
+          <p class="detail__synopsis">
+            {{ movie().synopsis }}
+          </p>
+        </div>
+
+        <span class="detail__toggle" (click)="toggleSynopsis()">
+          {{ isExpanded() ? 'Leer menos' : 'Leer más' }}
+        </span>
+
+        <button type="button" pButton (click)="onBuyTicket()">Ver Horarios</button>
+      </div>
+
+      <img class="detail__poster" [src]="movie().poster" [alt]="movie().title" />
+    </section>
+
+    <!-- <div class="movie-detail__hero">
+    </div> -->
+  }
+
+  <section class="movie-detail__reviews">
+    <h2 class="movie-detail__reviews-title">Reseñas</h2>
+
+    <div class="movie-detail__reviews-list">
+      @for (review of reviews(); track $index) {
+        <article class="review-card">
+          <div class="review-header">
+            <div class="review-user">
+              <img [src]="review.users.avatar" class="review__avatar" />
+              <div class="movie-detail__review-info">
+                <h3 class="movie-detail__review-author">
+                  {{ review.users.first_name }} {{ review.users.last_name }}
+                </h3>
+                <span class="movie-detail__review-time">{{ review.created_at | date }}</span>
+              </div>
+            </div>
+
+            <div class="movie-detail__review-stars">
+              @for (star of [1, 2, 3, 4, 5]; track star) {
+                @if (star <= review.rating) {
+                  <svg
+                    class="movie-detail__star-icon"
+                    width="20"
+                    height="20"
+                    viewBox="0 0 20 20"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M11.4421 2.92489L12.9087 5.85822C13.1087 6.26656 13.6421 6.65822 14.0921 6.73322L16.7504 7.17489C18.4504 7.45822 18.8504 8.69156 17.6254 9.90822L15.5587 11.9749C15.2087 12.3249 15.0171 12.9999 15.1254 13.4832L15.7171 16.0416C16.1837 18.0666 15.1087 18.8499 13.3171 17.7916L10.8254 16.3166C10.3754 16.0499 9.63375 16.0499 9.17541 16.3166L6.68375 17.7916C4.90041 18.8499 3.81708 18.0582 4.28375 16.0416L4.87541 13.4832C4.98375 12.9999 4.79208 12.3249 4.44208 11.9749L2.37541 9.90822C1.15875 8.69156 1.55041 7.45822 3.25041 7.17489L5.90875 6.73322C6.35041 6.65822 6.88375 6.26656 7.08375 5.85822L8.55041 2.92489C9.35041 1.33322 10.6504 1.33322 11.4421 2.92489Z"
+                      fill="#E8C644"
+                    />
+                  </svg>
+                } @else {
+                  <svg
+                    class="movie-detail__star-icon"
+                    width="20"
+                    height="20"
+                    viewBox="0 0 20 20"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M14.7161 18.8916C14.2744 18.8916 13.7078 18.75 12.9994 18.3333L10.5078 16.8583C10.2494 16.7083 9.74945 16.7083 9.49945 16.8583L6.99945 18.3333C5.52445 19.2083 4.65778 18.8583 4.26611 18.575C3.88278 18.2916 3.28278 17.5666 3.67445 15.9L4.26611 13.3416C4.33278 13.075 4.19945 12.6166 3.99945 12.4166L1.93278 10.35C0.899447 9.31664 0.98278 8.43331 1.12445 7.99998C1.26611 7.56664 1.71611 6.79998 3.14945 6.55831L5.80778 6.11664C6.05778 6.07498 6.41611 5.80831 6.52445 5.58331L7.99945 2.64164C8.66611 1.29998 9.54111 1.09998 9.99945 1.09998C10.4578 1.09998 11.3328 1.29998 11.9994 2.64164L13.4661 5.57498C13.5828 5.79998 13.9411 6.06664 14.1911 6.10831L16.8494 6.54998C18.2911 6.79164 18.7411 7.55831 18.8744 7.99164C19.0078 8.42498 19.0911 9.30831 18.0661 10.3416L15.9994 12.4166C15.7994 12.6166 15.6744 13.0666 15.7328 13.3416L16.3244 15.9C16.7078 17.5666 16.1161 18.2916 15.7328 18.575C15.5244 18.725 15.1911 18.8916 14.7161 18.8916ZM9.99945 15.4916C10.4078 15.4916 10.8161 15.5916 11.1411 15.7833L13.6328 17.2583C14.3578 17.6916 14.8161 17.6916 14.9911 17.5666C15.1661 17.4416 15.2911 17 15.1078 16.1833L14.5161 13.625C14.3578 12.9333 14.6161 12.0416 15.1161 11.5333L17.1828 9.46664C17.5911 9.05831 17.7744 8.65831 17.6911 8.38331C17.5994 8.10831 17.2161 7.88331 16.6494 7.79164L13.9911 7.34998C13.3494 7.24164 12.6494 6.72498 12.3578 6.14164L10.8911 3.20831C10.6244 2.67498 10.2911 2.35831 9.99945 2.35831C9.70778 2.35831 9.37445 2.67498 9.11611 3.20831L7.64111 6.14164C7.34945 6.72498 6.64945 7.24164 6.00778 7.34998L3.35778 7.79164C2.79111 7.88331 2.40778 8.10831 2.31611 8.38331C2.22445 8.65831 2.41611 9.06664 2.82445 9.46664L4.89111 11.5333C5.39111 12.0333 5.64945 12.9333 5.49111 13.625L4.89945 16.1833C4.70778 17.0083 4.84111 17.4416 5.01611 17.5666C5.19111 17.6916 5.64111 17.6833 6.37445 17.2583L8.86611 15.7833C9.18278 15.5916 9.59111 15.4916 9.99945 15.4916Z"
+                      fill="#282837"
+                    />
+                  </svg>
+                }
+              }
+            </div>
+          </div>
+
+          <p class="movie-detail__review-comment">{{ review.comment }}</p>
+        </article>
+      } @empty {
+        <div class="item-wrapper__empty-card">
+          <div class="item-wrapper__empty-icon-box">
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M12 20.25C11.31 20.25 10.72 19.97 10.27 19.49L7.56 16.78H4.5C3.39 16.78 2.5 15.89 2.5 14.78V5.75C2.5 4.64 3.39 3.75 4.5 3.75H19.5C20.61 3.75 21.5 4.64 21.5 5.75V14.78C21.5 15.89 20.61 16.78 19.5 16.78H15.94L13.73 19.49C13.28 19.97 12.69 20.25 12 20.25Z"
+                stroke="#3b82f6"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </div>
+
+          <h3 class="item-wrapper__empty-title">Aún no hay reseñas</h3>
+          <p class="item-wrapper__empty-description">
+            ¡Sé el primero en compartir tu opinión y ayudar a otros espectadores de IMANGO!
+          </p>
+
+          <div class="item-wrapper__empty-stars">
+            @for (star of [1, 2, 3, 4, 5]; track star) {
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 20 20"
+                fill="#E8C644"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M11.4421 2.92489L12.9087 5.85822C13.1087 6.26656 13.6421 6.65822 14.0921 6.73322L16.7504 7.17489C18.4504 7.45822 18.8504 8.69156 17.6254 9.90822L15.5587 11.9749C15.2087 12.3249 15.0171 12.9999 15.1254 13.4832L15.7171 16.0416C16.1837 18.0666 15.1087 18.8499 13.3171 17.7916L10.8254 16.3166C10.3754 16.0499 9.63375 16.0499 9.17541 16.3166L6.68375 17.7916C4.90041 18.8499 3.81708 18.0582 4.28375 16.0416L4.87541 13.4832C4.98375 12.9999 4.79208 12.3249 4.44208 11.9749L2.37541 9.90822C1.15875 8.69156 1.55041 7.45822 3.25041 7.17489L5.90875 6.73322C6.35041 6.65822 6.88375 6.26656 7.08375 5.85822L8.55041 2.92489C9.35041 1.33322 10.6504 1.33322 11.4421 2.92489Z"
+                />
+              </svg>
+            }
+          </div>
+
+          <button type="button" class="item-wrapper__empty-btn">
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M12 20h9"></path>
+              <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
+            </svg>
+            Escribir reseña
+          </button>
+        </div>
+      }
+    </div>
+  </section>
+</div>

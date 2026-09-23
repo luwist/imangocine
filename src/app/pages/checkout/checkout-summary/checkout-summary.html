@@ -1,0 +1,42 @@
+<aside class="checkout-summary">
+  <h2 class="checkout-summary__title">Resumen</h2>
+
+  <section class="checkout-summary__section">
+    <h3 class="checkout-summary__section-title">Película</h3>
+    <div class="checkout-summary__movie">
+      <!-- <img class="checkout-summary__movie-poster" [src]="movie().poster" /> -->
+      <!-- <span class="checkout-summary__movie-title">{{ movie().title }}</span> -->
+    </div>
+  </section>
+
+  @if (showtime()) {
+    <section class="checkout-summary__section">
+      <h3 class="checkout-summary__section-title">Día y horario</h3>
+      <div class="checkout-summary__row">
+        <!-- ícono -->
+        <div class="checkout-summary__row-text">
+          <!-- <span class="checkout-summary__row-text-primary">Sala {{ showtime()!.room }}</span>
+          <span class="checkout-summary__row-text-secondary">{{ showtime()!.date }}</span> -->
+        </div>
+      </div>
+    </section>
+  }
+
+  @if (seats().length) {
+    <section class="checkout-summary__section">
+      <!-- <h3 class="checkout-summary__section-title">Asientos ({{ seats().length }})</h3>
+      <div class="checkout-summary__row">
+        <span class="checkout-summary__row-text-primary">{{ seats().join(', ') }}</span>
+      </div> -->
+    </section>
+  }
+
+  <div class="checkout-summary__total">
+    <span class="checkout-summary__total-label">Total</span>
+    <span class="checkout-summary__total-price">{{
+      total() | currency: 'ARS' : 'symbol-narrow' : '1.0-0'
+    }}</span>
+  </div>
+
+  <button class="checkout-summary__button" (click)="continue.emit()">Continuar</button>
+</aside>

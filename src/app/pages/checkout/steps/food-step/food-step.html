@@ -1,0 +1,54 @@
+<section class="food-step">
+  @if (loading()) {
+    <p-skeleton width="200px" height="24px" borderRadius="50px" />
+
+    <div class="food-step__grid">
+      @for (item of skeletonItems; track $index) {
+        <div class="food-step__card food-step__card--skeleton">
+          <div class="food-step__card-image">
+            <p-skeleton height="247px" borderRadius="12px" />
+          </div>
+
+          <div class="food-step__card-body">
+            <p-skeleton width="148px" height="20px" borderRadius="50px" />
+            <p-skeleton width="250px" height="20px" borderRadius="50px" />
+          </div>
+
+          <span class="food-step__card-price">
+            <p-skeleton width="56px" height="20px" borderRadius="50px" />
+          </span>
+        </div>
+      }
+    </div>
+  } @else {
+    @for (group of combos(); track group.category.id) {
+      <h2 class="food-step__section-title">{{ group.category.name }}</h2>
+
+      <div class="food-step__grid">
+        @for (combo of group.combos; track combo.id) {
+          <button
+            class="food-step__card"
+            [class.food-step__card--soldout]="!combo.is_available"
+            [disabled]="!combo.is_available"
+          >
+            <div class="food-step__card-image">
+              <img [src]="combo.image" [alt]="combo.name" />
+              @if (!combo.is_available) {
+                <span class="food-step__card-badge">Agotado</span>
+              }
+            </div>
+
+            <div class="food-step__card-body">
+              <h3 class="food-step__card-name">{{ combo.name }}</h3>
+              <p class="food-step__card-description">{{ combo.description }}</p>
+            </div>
+
+            <span class="food-step__card-price">
+              {{ combo.price | currency: 'ARS' : 'symbol' : '1.0-0' }}
+            </span>
+          </button>
+        }
+      </div>
+    }
+  }
+</section>

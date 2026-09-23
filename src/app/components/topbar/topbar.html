@@ -1,0 +1,13 @@
+<header class="topbar">
+  <div class="topbar__date">
+    <img src="icons/calendar.svg" alt="Calendar" />
+
+    {{ currentDate | date: 'longDate' }}
+  </div>
+
+  @if (currentUser()) {
+    <div class="avatar">
+      <img [src]="currentUser().user_metadata['avatar']" class="avatar__image" />
+    </div>
+  }
+</header>

@@ -1,0 +1,66 @@
+<!-- <div class="date-tabs__list">
+  @for (option of dateOptions(); track option.value) {
+    <button
+      type="button"
+      class="date-tabs__item"
+      [class.date-tabs__item--active]="option.value === selectedDate()"
+      (click)="selectDate(option.value)"
+    >
+      <span class="date-tabs__item-label">{{ option.label }}</span>
+      <span class="date-tabs__item-date">{{ option.dayNumber }} {{ option.monthLabel }}</span>
+    </button>
+  }
+</div>
+
+<div class="showtime-groups">
+
+  @for (group of groupsForSelectedDate(); track group.label) {
+    <div class="showtime-group__list">
+      @for (showtime of group.showtimes; track showtime.id) {
+        <button type="button" class="showtime-group__time" (click)="selectShowtime(showtime)">
+          {{ showtime.starts_at | date: 'HH:mm' : 'America/Argentina/Buenos_Aires' }}
+        </button>
+      }
+    </div>
+  } @empty {
+    <p class="showtime-groups__empty">No hay funciones para este día.</p>
+  }
+</div> -->
+
+<section class="selector">
+  <h2 class="selector__title">Día</h2>
+
+  <div class="selector__list">
+    @for (option of dateOptions(); track option.value) {
+      <button
+        type="button"
+        class="selector__item"
+        [class.date-tabs__item--active]="option.value === selectedDate()"
+        (click)="selectDate(option.value)"
+      >
+        <span class="selector__item-label">{{ option.label }}</span>
+        <span class="selector__item-date">{{ option.dayNumber }} {{ option.monthLabel }}</span>
+      </button>
+    }
+  </div>
+</section>
+
+<section class="selector">
+  <h2 class="selector__title">Hora</h2>
+
+  @for (group of groupsForSelectedDate(); track group.label) {
+    <div class="selector__list">
+      @for (showtime of group.showtimes; track showtime.id) {
+        <button type="button" class="selector__item" (click)="selectShowtime(showtime)">
+          <span class="selector__item-time">
+            {{ showtime.starts_at | date: 'HH:mm' : 'America/Argentina/Buenos_Aires' }}
+          </span>
+
+          <span class="selector__item-format">{{ showtime.format }}</span>
+        </button>
+      }
+    </div>
+  } @empty {
+    <p class="selector__empty">No hay funciones para este día.</p>
+  }
+</section>

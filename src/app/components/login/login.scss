@@ -1,0 +1,34 @@
+.avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background-color: #1D1D1D;
+  cursor: pointer;
+  border: 0;
+}
+
+.login__title {
+  font-size: 20px;
+  margin-bottom: 48px;
+}
+
+.login__form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.avatar {
+  width: 44px;
+  height: 44px;
+
+  &__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+  }
+}

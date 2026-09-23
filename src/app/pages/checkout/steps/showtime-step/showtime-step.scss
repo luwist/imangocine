@@ -1,0 +1,110 @@
+.date-tabs__list {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  .date-tabs__item {
+    border: 1px solid #323234;
+    padding: 8px 16px;
+    border-radius: 12px;
+    font-family: inherit;
+    background-color: #1D1D1D;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+
+    &:hover {
+      background-color: #212121;
+    }
+
+    .date-tabs__item-label {
+      font-size: 14px;
+      line-height: 20px;
+      color: #BABABA;
+    }
+
+    .date-tabs__item-date {
+      font-size: 14px;
+      line-height: 20px;
+      font-weight: 600;
+      color: #FFFFFF;
+    }
+  }
+}
+
+.showtime-groups {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  .showtime-group__time {
+    border: 1px solid #323234;
+    padding: 8px 16px;
+    border-radius: 50px;
+    font-family: inherit;
+    background-color: #1D1D1D;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: 600;
+    color: #FFFFFF;
+
+    &:hover {
+      background-color: #212121;
+    }
+  }
+}
+
+.selector {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+
+  .selector__title {
+    font-size: 14px;
+    line-height: 20px;
+  }
+
+  &:nth-child(2) {
+    margin-top: 24px;
+  }
+}
+
+.selector__list {
+  display: flex;
+  gap: 12px;
+}
+
+.selector__item {
+  border: 1px solid #323234;
+  padding: 8px 16px;
+  border-radius: 12px;
+  font-family: inherit;
+  background-color: #1D1D1D;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+
+  &:hover {
+    background-color: #212121;
+  }
+
+  .selector__item-label {
+    font-size: 14px;
+    line-height: 20px;
+    color: #BABABA;
+  }
+
+  .selector__item-date {
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: 600;
+    color: #FFFFFF;
+  }
+}

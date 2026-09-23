@@ -1,0 +1,112 @@
+<div class="container__header">
+  <h1 class="container__title">Nueva Película</h1>
+</div>
+
+<form [formGroup]="form" (submit)="onCreate()">
+  <div class="content">
+    <div class="left">
+      <div class="field">
+        <label class="field__label">Poster</label>
+
+        <app-poster-upload />
+      </div>
+    </div>
+
+    <div class="fields">
+      <div class="field">
+        <label class="field__label">Título</label>
+
+        <input pInputText placeholder="Título" formControlName="title" />
+
+        @if (
+          getFormControl('title')?.invalid &&
+          (getFormControl('title')?.touched || getFormControl('title')?.dirty)
+        ) {
+          @if (getFormControl('title')?.hasError('required')) {
+            <p class="field__error">El campo es obligatorio.</p>
+          }
+        }
+      </div>
+
+      <div class="field">
+        <label class="field__label">Sinopsis</label>
+
+        <textarea
+          pTextarea
+          [autoResize]="true"
+          placeholder="Sinopsis"
+          formControlName="synopsis"
+        ></textarea>
+
+        @if (
+          getFormControl('synopsis')?.invalid &&
+          (getFormControl('synopsis')?.touched || getFormControl('synopsis')?.dirty)
+        ) {
+          @if (getFormControl('synopsis')?.hasError('required')) {
+            <p class="field__error">El campo es obligatorio.</p>
+          }
+        }
+      </div>
+
+      <div class="fields__row">
+        <div class="field">
+          <label class="field__label">Duración (min)</label>
+
+          <input type="number" pInputText placeholder="Duración" formControlName="duration" />
+
+          @if (
+            getFormControl('duration')?.invalid &&
+            (getFormControl('duration')?.touched || getFormControl('duration')?.dirty)
+          ) {
+            @if (getFormControl('duration')?.hasError('required')) {
+              <p class="field__error">El campo es obligatorio.</p>
+            }
+          }
+        </div>
+
+        <div class="field">
+          <label class="field__label">Estreno</label>
+
+          <input type="date" pInputText placeholder="Estreno" formControlName="released" />
+        </div>
+
+        <div class="field">
+          <label class="field__label">Clasificación</label>
+
+          <p-selectbutton [options]="ageRatingOptions" formControlName="ageRating" />
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="field__label">Géneros</label>
+
+        <div class="genre-picker">
+          @for (genre of genres(); track $index) {
+            <button
+              type="button"
+              class="genre-picker__chip"
+              [class.genre-picker__chip--selected]="isGenreSelected(genre.id)"
+              (click)="toggleGenre(genre.id)"
+            >
+              {{ genre.name }}
+            </button>
+          }
+        </div>
+
+        @if (
+          getFormControl('genres')?.invalid &&
+          (getFormControl('genres')?.touched || getFormControl('genres')?.dirty)
+        ) {
+          @if (getFormControl('genres')?.hasError('required')) {
+            <p class="field__error">Eliga un genero</p>
+          }
+        }
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <button pButton [text]="true">Cancelar</button>
+    <button pButton>Guardar</button>
+  </div>
+</form>

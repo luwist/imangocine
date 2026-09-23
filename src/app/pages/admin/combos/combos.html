@@ -1,0 +1,33 @@
+<div class="container__header">
+  <h1 class="container__title">Combos</h1>
+
+  <app-create-combo />
+</div>
+
+<div class="container">
+  @for (combo of combos(); track $index) {
+    <article class="combo-card">
+      <div class="combo-card__header">
+        <img
+          [src]="combo.image"
+          alt=""
+          class="combo-card__image"
+          [ngClass]="{ 'combo-card__image--disabled': !combo.is_available }"
+        />
+
+        <div class="combo-card__info">
+          <h3 class="combo-card__title">{{ combo.name }}</h3>
+          <p class="combo-card__description">{{ combo.description }}</p>
+        </div>
+      </div>
+
+      <div class="combo-card__footer">
+        <span class="combo-card__price">{{
+          combo.price | currency: 'ARS' : 'symbol' : '1.0-2' : 'es-AR'
+        }}</span>
+
+        <p-toggleswitch checked="true" />
+      </div>
+    </article>
+  }
+</div>

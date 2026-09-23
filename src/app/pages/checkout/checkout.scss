@@ -1,0 +1,25 @@
+.checkout {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 64px;
+  width: 100%;
+  max-width: 1680px;
+  height: calc(100vh - 84px);
+  margin: 0 auto;
+  padding: 0 80px;
+}
+
+.checkout__content {
+  flex: 1;
+  width: 100%;
+  min-width: 0;   // clave: sin esto, un hijo con contenido ancho fuerza overflow del flex padre
+  height: 100%;
+}
+
+.checkout__summary {
+  width: 320px;
+  flex-shrink: 0;
+  position: sticky;
+  top: 40px;
+}
