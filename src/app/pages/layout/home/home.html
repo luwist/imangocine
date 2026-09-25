@@ -16,6 +16,7 @@
         <a class="movie__card" [routerLink]="['movie', movie.slug]">
           <div class="movie__image">
             <img [src]="movie.poster" [alt]="movie.title" class="movie__poster" />
+
             <span class="movie__badge movie__badge--left">
               @switch (movie.age_restriction) {
                 @case (18) {

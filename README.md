@@ -294,6 +294,10 @@ erDiagram
 
 <img src="./public/images/login.png" />
 
+### Registro
+
+<img src="./public/images/register.png" />
+
 ### Detalle de la película
 
 <img src="./public/images/movie-detail.png" />

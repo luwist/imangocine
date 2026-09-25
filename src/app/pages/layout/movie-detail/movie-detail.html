@@ -2,24 +2,32 @@
   @if (movie()) {
     <section class="detail">
       <div class="detail__info">
-        <h1 class="detail__title">{{ movie().title }}</h1>
+        <div class="detail__container">
+          <h1 class="detail__title">{{ movie().title }}</h1>
 
-        <p class="detail__meta">
-          {{ movie().released | date: 'yyyy' }} | {{ movie().duration }}min
-        </p>
+          <div class="detail__meta">
+            <span class="pill">{{ movie().released | date: 'yyyy' }}</span>
+            <span class="pill">{{ movie().duration | minuteToHours }}</span>
+            <span class="pill">{{
+              movie()
+                .genres.map((g) => g.name)
+                .join(' / ')
+            }}</span>
+          </div>
 
-        <div
-          class="detail__synopsis-wrapper"
-          [class.detail__synopsis-wrapper--expanded]="isExpanded()"
-        >
-          <p class="detail__synopsis">
-            {{ movie().synopsis }}
-          </p>
+          <div
+            class="detail__synopsis-wrapper"
+            [class.detail__synopsis-wrapper--expanded]="isExpanded()"
+          >
+            <p class="detail__synopsis">
+              {{ movie().synopsis }}
+            </p>
+          </div>
+
+          <span class="detail__toggle" (click)="toggleSynopsis()">
+            {{ isExpanded() ? 'Leer menos' : 'Leer más' }}
+          </span>
         </div>
-
-        <span class="detail__toggle" (click)="toggleSynopsis()">
-          {{ isExpanded() ? 'Leer menos' : 'Leer más' }}
-        </span>
 
         <button type="button" pButton (click)="onBuyTicket()">Ver Horarios</button>
       </div>
@@ -36,10 +44,11 @@
 
     <div class="movie-detail__reviews-list">
       @for (review of reviews(); track $index) {
-        <article class="review-card">
+        <article class="review">
           <div class="review-header">
             <div class="review-user">
               <img [src]="review.users.avatar" class="review__avatar" />
+
               <div class="movie-detail__review-info">
                 <h3 class="movie-detail__review-author">
                   {{ review.users.first_name }} {{ review.users.last_name }}

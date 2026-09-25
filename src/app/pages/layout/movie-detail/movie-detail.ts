@@ -4,9 +4,10 @@ import { SkeletonModule } from '@openng/optimus-ui/skeleton';
 import { ButtonModule } from '@openng/optimus-ui/button';
 import { CommonModule, DatePipe } from '@angular/common';
 import { Movie, Review } from '@app/services';
+import { MinuteToHoursPipe } from '@app/pipes';
 
 @Component({
-  imports: [CommonModule, SkeletonModule, ButtonModule, DatePipe],
+  imports: [CommonModule, SkeletonModule, ButtonModule, DatePipe, MinuteToHoursPipe],
   selector: 'app-movie-detail',
   styleUrl: './movie-detail.scss',
   templateUrl: './movie-detail.html',
@@ -28,6 +29,7 @@ export class MovieDetail implements OnInit {
     const movie = await this._movieService.getBySlug(slug);
     const reviews = await this._reviewService.getListByMovieId(movie.id);
 
+    console.log(movie);
     console.log(reviews);
 
     this.movie.set(movie);

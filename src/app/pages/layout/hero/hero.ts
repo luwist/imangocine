@@ -1,5 +1,7 @@
+import { CommonModule } from '@angular/common';
 import { Component, effect, input, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { MinuteToHoursPipe } from '@app/pipes';
 import { ButtonModule } from '@openng/optimus-ui/button';
 
 export interface HeroMovie {
@@ -15,7 +17,7 @@ const AUTOPLAY_MS = 6000;
 const AGE_LABELS: Record<number, string> = { 0: 'ATP', 13: '+13', 18: '+18' };
 
 @Component({
-  imports: [RouterLink, ButtonModule],
+  imports: [CommonModule, RouterLink, ButtonModule, MinuteToHoursPipe],
   selector: 'app-hero',
   styleUrl: './hero.scss',
   templateUrl: './hero.html',

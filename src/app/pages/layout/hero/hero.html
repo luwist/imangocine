@@ -42,22 +42,17 @@
           [attr.inert]="i !== current() ? '' : null"
         >
           <div class="hero__content">
-            <h1 class="hero__title">{{ movie.title }}</h1>
-            <p class="hero__synopsis">{{ movie.synopsis }}</p>
+            <div class="hero__info">
+              <h1 class="hero__title">{{ movie.title }}</h1>
 
-            <ul class="hero__badges">
-              @if (movie.rating; as rating) {
-                <li class="hero__badge">
-                  {{ rating.toFixed(1) }}
-                  <svg class="hero__star" viewBox="0 0 24 24" aria-hidden="true">
-                    <path
-                      d="M12 3.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9l-5.2 2.7 1-5.8L3.5 9.7l5.9-.9z"
-                    />
-                  </svg>
-                </li>
-              }
-              <li class="hero__badge">{{ ageLabel(movie.age_restriction) }}</li>
-            </ul>
+              <div class="detail__meta">
+                <span class="pill">{{ movie.released | date: 'yyyy' }}</span>
+                <span class="pill">{{ movie.duration | minuteToHours }}</span>
+                <span class="pill">{{ movie.genres.map((g) => g.name).join(' / ') }}</span>
+              </div>
+
+              <p class="hero__synopsis">{{ movie.synopsis }}</p>
+            </div>
 
             <a pButton [routerLink]="['/movie', movie.slug]">Comprar entrada</a>
           </div>

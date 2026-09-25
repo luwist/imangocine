@@ -86,3 +86,20 @@
     color: #FFFFFF;
     }
 }
+
+.detail__meta {
+  margin-top: 12px;
+  display: flex;
+  gap: 8px;
+}
+
+.pill {
+  padding: 5px 12px;
+  height: 32px;
+  border-radius: 12px;
+  background-color: #1D1D1D;
+  border: 1px solid #252527;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 500;
+}

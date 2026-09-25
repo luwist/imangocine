@@ -18,7 +18,7 @@ export class Movie {
   async getBySlug(slug: string) {
     const { data } = await this._db.client
       .from(this._tableName)
-      .select('*')
+      .select('*, genres(id, name)')
       .eq('slug', slug)
       .maybeSingle();
 
@@ -30,7 +30,7 @@ export class Movie {
 
     const { data, error } = await this._db.client
       .from(this._tableName)
-      .select('slug, title, synopsis, poster, age_restriction')
+      .select('*, genres(id, name)')
       .eq('is_active', true)
       .order('released', { ascending: false })
       .limit(limit);

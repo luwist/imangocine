@@ -38,15 +38,21 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: 20px;
+    gap: 56px;
     max-width: 700px;
+  }
+  
+  .hero__info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
   }
 
   &__title {
     margin: 0;
-    font-size: 40px;
+    font-size: 28px;
     font-weight: 700;
-    line-height: 1.15;
   }
 
   &__synopsis {
@@ -55,7 +61,7 @@
     overflow: hidden;
     font-size: 16px;
     line-height: 24px;
-    color: #FFFFFF;
+    color: #888888;
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
   }
@@ -217,4 +223,20 @@
       display: none;
     }
   }
+}
+
+.detail__meta {
+  display: flex;
+  gap: 8px;
+}
+
+.pill {
+  padding: 5px 12px;
+  height: 32px;
+  border-radius: 12px;
+  background-color: #1D1D1D;
+  border: 1px solid #252527;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 500;
 }

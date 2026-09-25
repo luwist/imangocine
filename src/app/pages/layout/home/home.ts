@@ -4,9 +4,10 @@ import { Movie } from '@app/services';
 import { SkeletonModule } from '@openng/optimus-ui/skeleton';
 import { Hero } from '../hero/hero';
 import { MinuteToHoursPipe } from '@app/pipes';
+import { CommonModule } from '@angular/common';
 
 @Component({
-  imports: [RouterLink, SkeletonModule, Hero, MinuteToHoursPipe],
+  imports: [CommonModule, RouterLink, SkeletonModule, Hero, MinuteToHoursPipe],
   selector: 'app-home',
   styleUrl: './home.scss',
   templateUrl: './home.html',
