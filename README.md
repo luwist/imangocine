@@ -301,3 +301,15 @@ erDiagram
 ### Detalle de la película
 
 <img src="./public/images/movie-detail.png" />
+
+### Elección de dia y horario
+
+<img src="./public/images/checkout-showtime.png" />
+
+### Elección de asientos
+
+<img src="./public/images/checkout-seats.png" />
+
+### Elección de comida
+
+<img src="./public/images/checkout-food.png" />
