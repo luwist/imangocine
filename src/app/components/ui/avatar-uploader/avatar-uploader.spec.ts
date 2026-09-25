@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { Public } from './public';
+import { AvatarUploader } from './avatar-uploader';
 
-describe('Public', () => {
-  let component: Public;
-  let fixture: ComponentFixture<Public>;
+describe('AvatarUploader', () => {
+  let component: AvatarUploader;
+  let fixture: ComponentFixture<AvatarUploader>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [Public],
+      imports: [AvatarUploader],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(Public);
+    fixture = TestBed.createComponent(AvatarUploader);
     component = fixture.componentInstance;
     await fixture.whenStable();
   });

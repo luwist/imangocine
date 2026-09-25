@@ -4,10 +4,10 @@ import { Supabase } from '@app/services';
 import { ButtonModule } from '@openng/optimus-ui/button';
 import { AvatarModule } from '@openng/optimus-ui/avatar';
 import { User } from '@supabase/supabase-js';
-import { Login } from '../login/login';
+import { Auth } from '../auth';
 
 @Component({
-  imports: [RouterLink, ButtonModule, AvatarModule, Login],
+  imports: [RouterLink, ButtonModule, AvatarModule, Auth],
   selector: 'app-header',
   styleUrl: './header.scss',
   templateUrl: './header.html',

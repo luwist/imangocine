@@ -7,7 +7,7 @@
     @if (loading()) {
       @for (item of skeletonItems; track $index) {
         <div class="movies__item movies__item--skeleton">
-          <p-skeleton class="movies__poster" height="358px" />
+          <p-skeleton class="movies__poster" height="358px" borderRadius="16px" />
           <p-skeleton width="128px" height="20px" borderRadius="50px" />
         </div>
       }

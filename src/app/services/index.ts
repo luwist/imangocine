@@ -2,6 +2,7 @@ export * from './auth';
 export * from './candy-bar';
 export * from './combo';
 export * from './combo-category';
+export * from './eye-color';
 export * from './storage';
 export * from './genre';
 export * from './movie';

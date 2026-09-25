@@ -1,0 +1,428 @@
+@if (currentUser()) {
+  <div class="avatar">
+    <img [src]="currentUser().user_metadata['avatar']" class="avatar__image" />
+  </div>
+} @else {
+  <button (click)="openDrawer()" class="avatar">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path
+        d="M12.1601 10.87C12.0601 10.86 11.9401 10.86 11.8301 10.87C9.45006 10.79 7.56006 8.84 7.56006 6.44C7.56006 3.99 9.54006 2 12.0001 2C14.4501 2 16.4401 3.99 16.4401 6.44C16.4301 8.84 14.5401 10.79 12.1601 10.87Z"
+        stroke="white"
+        stroke-width="1.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+      <path
+        d="M7.16021 14.56C4.74021 16.18 4.74021 18.82 7.16021 20.43C9.91021 22.27 14.4202 22.27 17.1702 20.43C19.5902 18.81 19.5902 16.17 17.1702 14.56C14.4302 12.73 9.92021 12.73 7.16021 14.56Z"
+        stroke="white"
+        stroke-width="1.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+    </svg>
+  </button>
+}
+
+<p-drawer
+  [(visible)]="visible"
+  styleClass="drawer"
+  position="right"
+  [showCloseIcon]="false"
+  (onHide)="onHide()"
+>
+  <ng-template #header>
+    <div class="drawer__header">
+      @if (view() === 'register') {
+        <p-button
+          styleClass="p-button-icon-only"
+          variant="text"
+          [rounded]="true"
+          (onClick)="backToLogin()"
+        >
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M9.57 18.82c-.19 0-.38-.07-.53-.22l-6.07-6.07a.754.754 0 0 1 0-1.06L9.04 5.4c.29-.29.77-.29 1.06 0s.29.77 0 1.06L4.56 12l5.54 5.54c.29.29.29.77 0 1.06-.14.15-.34.22-.53.22"
+              fill="#fff"
+            />
+            <path
+              d="M20.5 12.75H3.67c-.41 0-.75-.34-.75-.75s.34-.75.75-.75H20.5c.41 0 .75.34.75.75s-.34.75-.75.75"
+              fill="#fff"
+            />
+          </svg>
+        </p-button>
+      }
+
+      <span class="drawer__title">
+        {{ view() === 'login' ? 'Iniciá sesión' : 'Crear cuenta' }}
+      </span>
+
+      <p-button styleClass="p-button-icon-only" variant="text" [rounded]="true" (onClick)="close()">
+        <svg
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M16.776 8.288 8.29 16.773c-.29.29-.77.29-1.06 0a.756.756 0 0 1 0-1.06l8.485-8.486c.29-.29.77-.29 1.06 0s.29.77 0 1.06"
+            fill="#fff"
+          />
+          <path
+            d="M16.776 16.773a.756.756 0 0 1-1.061 0L7.23 8.288a.755.755 0 0 1 0-1.061c.29-.29.77-.29 1.06 0l8.486 8.485c.29.29.29.771 0 1.06"
+            fill="#fff"
+          />
+        </svg>
+      </p-button>
+    </div>
+  </ng-template>
+
+  @if (view() === 'login') {
+    <div class="drawer__body">
+      <p class="drawer__greeting">¡Hola! Qué bueno verte por acá.</p>
+
+      <form class="fields" [formGroup]="loginForm">
+        <div class="field">
+          <label class="field__label">Correo electrónico</label>
+
+          <input type="email" pInputText placeholder="Correo electrónico" formControlName="email" />
+
+          @if (
+            getLoginFormControl('email')?.invalid &&
+            (getLoginFormControl('email')?.touched || getLoginFormControl('email')?.dirty)
+          ) {
+            @if (getLoginFormControl('email')?.hasError('required')) {
+              <p class="field__error">El campo es obligatorio.</p>
+            }
+
+            @if (getLoginFormControl('email')?.hasError('email')) {
+              <p class="field__error">Ingresá un correo electrónico válido.</p>
+            }
+          }
+        </div>
+
+        <div class="field">
+          <label class="field__label">Contraseña</label>
+
+          <input type="password" pInputText placeholder="Contraseña" formControlName="password" />
+
+          @if (
+            getLoginFormControl('password')?.invalid &&
+            (getLoginFormControl('password')?.touched || getLoginFormControl('required')?.dirty)
+          ) {
+            @if (getLoginFormControl('password')?.hasError('required')) {
+              <p class="field__error">El campo es obligatorio.</p>
+            }
+          }
+        </div>
+      </form>
+
+      <button
+        pButton
+        class="drawer__button drawer__button--login"
+        [disabled]="!loginForm.valid"
+        (click)="onLogin()"
+      >
+        @if (isLoginLoading()) {
+          <div class="spinner">
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M22 12C22 13.3132 21.7413 14.6136 21.2388 15.8268C20.7362 17.0401 19.9997 18.1425 19.0711 19.0711C18.1425 19.9997 17.0401 20.7362 15.8268 21.2388C14.6136 21.7413 13.3132 22 12 22"
+                stroke="white"
+                stroke-width="1.5"
+                stroke-linecap="round"
+              />
+            </svg>
+          </div>
+        } @else {
+          Iniciar sesión
+        }
+      </button>
+    </div>
+  } @else {
+    <div class="drawer__body">
+      <form [formGroup]="registerForm">
+        <h3 class="drawer__section-title">Personalizá tu avatar</h3>
+
+        <app-avatar-uploader (fileSelected)="onfileSelected($event)" />
+
+        <h3 class="drawer__section-title">Información personal</h3>
+
+        <div class="fields">
+          <div class="fields__row">
+            <div class="field">
+              <label class="field__label">Nombre</label>
+
+              <input pInputText placeholder="Nombre" formControlName="firstName" />
+
+              @if (
+                getRegisterFormControl('firstName')?.invalid &&
+                (getRegisterFormControl('firstName')?.touched ||
+                  getRegisterFormControl('firstName')?.dirty)
+              ) {
+                @if (getRegisterFormControl('firstName')?.hasError('required')) {
+                  <p class="field__error">El campo es obligatorio.</p>
+                }
+              }
+            </div>
+
+            <div class="field">
+              <label class="field__label">Apellido</label>
+
+              <input pInputText placeholder="Apellido" formControlName="lastName" />
+
+              @if (
+                getRegisterFormControl('lastName')?.invalid &&
+                (getRegisterFormControl('lastName')?.touched ||
+                  getRegisterFormControl('lastName')?.dirty)
+              ) {
+                @if (getRegisterFormControl('lastName')?.hasError('required')) {
+                  <p class="field__error">El campo es obligatorio.</p>
+                }
+              }
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="field__label">Fecha de nacimiento</label>
+
+            <input
+              pInputText
+              formControlName="birthDate"
+              pInputMask="99/99/9999"
+              placeholder="mm/dd/yyyy"
+            />
+
+            @if (
+              getRegisterFormControl('birthDate')?.invalid &&
+              (getRegisterFormControl('birthDate')?.touched ||
+                getRegisterFormControl('required')?.dirty)
+            ) {
+              @if (getRegisterFormControl('birthDate')?.hasError('required')) {
+                <p class="field__error">El campo es obligatorio.</p>
+              }
+
+              @if (getRegisterFormControl('birthDate')?.hasError('invalidDate')) {
+                <p class="field__error">Ingresá una fecha válida.</p>
+              }
+
+              @if (getRegisterFormControl('birthDate')?.hasError('futureDate')) {
+                <p class="field__error">La fecha no puede ser futura.</p>
+              }
+            }
+          </div>
+
+          <div class="field">
+            <label class="field__label">Tipo de sangre</label>
+
+            <p-select
+              [options]="bloodType"
+              placeholder="Tipo de sangre"
+              formControlName="bloodType"
+            >
+              <ng-template #dropdownicon>
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 20 20"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M16.6004 7.4585L11.1671 12.8918C10.5254 13.5335 9.47541 13.5335 8.83374 12.8918L3.40039 7.4585"
+                    stroke="white"
+                    stroke-width="1.25"
+                    stroke-miterlimit="10"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </ng-template>
+            </p-select>
+
+            @if (
+              getRegisterFormControl('bloodType')?.invalid &&
+              (getRegisterFormControl('bloodType')?.touched ||
+                getRegisterFormControl('bloodType')?.dirty)
+            ) {
+              @if (getRegisterFormControl('bloodType')?.hasError('required')) {
+                <p class="field__error">El campo es obligatorio.</p>
+              }
+            }
+          </div>
+
+          <div class="fields__row">
+            <div class="field">
+              <label class="field__label">Color de ojos</label>
+
+              <p-select
+                [options]="eyeColors()"
+                optionLabel="name"
+                placeholder="Color de ojos"
+                formControlName="eyeColor"
+              >
+                <ng-template let-eyeColor #selectedItem>
+                  <div class="color-option">
+                    <span
+                      class="color-option__swatch"
+                      [style.background]="eyeColor.hex_code"
+                    ></span>
+                    <span class="color-option__label">{{ eyeColor.name }}</span>
+                  </div>
+                </ng-template>
+                <ng-template let-eyeColor #item>
+                  <div class="color-option">
+                    <span
+                      class="color-option__swatch"
+                      [style.background]="eyeColor.hex_code"
+                    ></span>
+                    <span class="color-option__label">{{ eyeColor.name }}</span>
+                  </div>
+                </ng-template>
+                <ng-template #dropdownicon>
+                  <svg
+                    width="20"
+                    height="20"
+                    viewBox="0 0 20 20"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M16.6004 7.4585L11.1671 12.8918C10.5254 13.5335 9.47541 13.5335 8.83374 12.8918L3.40039 7.4585"
+                      stroke="white"
+                      stroke-width="1.25"
+                      stroke-miterlimit="10"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                </ng-template>
+              </p-select>
+
+              @if (
+                getRegisterFormControl('bloodType')?.invalid &&
+                (getRegisterFormControl('bloodType')?.touched ||
+                  getRegisterFormControl('bloodType')?.dirty)
+              ) {
+                @if (getRegisterFormControl('bloodType')?.hasError('required')) {
+                  <p class="field__error">El campo es obligatorio.</p>
+                }
+              }
+            </div>
+
+            <div class="field">
+              <label class="field__label">Días de vacaciones</label>
+
+              <input type="number" pInputText placeholder="0" formControlName="vacationDays" />
+
+              @if (
+                getRegisterFormControl('vacationDays')?.invalid &&
+                (getRegisterFormControl('vacationDays')?.touched ||
+                  getRegisterFormControl('vacationDays')?.dirty)
+              ) {
+                @if (getRegisterFormControl('vacationDays')?.hasError('required')) {
+                  <p class="field__error">El campo es obligatorio.</p>
+                }
+              }
+            </div>
+          </div>
+        </div>
+
+        <h3 class="drawer__section-title">Mi cuenta</h3>
+
+        <div class="fields">
+          <div class="field">
+            <label class="field__label">Correo electrónico</label>
+
+            <input
+              type="email"
+              pInputText
+              placeholder="Correo electrónico"
+              formControlName="email"
+            />
+
+            @if (
+              getRegisterFormControl('email')?.invalid &&
+              (getRegisterFormControl('email')?.touched || getRegisterFormControl('email')?.dirty)
+            ) {
+              @if (getRegisterFormControl('email')?.hasError('required')) {
+                <p class="field__error">El campo es obligatorio.</p>
+              }
+
+              @if (getRegisterFormControl('email')?.hasError('email')) {
+                <p class="field__error">Ingresá un correo electrónico válido.</p>
+              }
+            }
+          </div>
+
+          <div class="field">
+            <label class="field__label">Contraseña</label>
+
+            <input type="password" pInputText placeholder="Contraseña" formControlName="password" />
+
+            @if (
+              getRegisterFormControl('password')?.invalid &&
+              (getRegisterFormControl('password')?.touched ||
+                getRegisterFormControl('required')?.dirty)
+            ) {
+              @if (getRegisterFormControl('password')?.hasError('required')) {
+                <p class="field__error">El campo es obligatorio.</p>
+              }
+            }
+          </div>
+        </div>
+      </form>
+    </div>
+  }
+
+  <ng-template #footer>
+    <div class="drawer__footer">
+      @if (view() === 'login') {
+        <p class="drawer__hint">
+          ¿No tenés cuenta?
+          <a class="drawer__link" (click)="goToRegister()">Registrate</a>
+        </p>
+      } @else {
+        <button
+          pButton
+          class="drawer__button"
+          [disabled]="!registerForm.valid"
+          (click)="onRegister()"
+        >
+          @if (isRegisterLoading()) {
+            <div class="spinner">
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M22 12C22 13.3132 21.7413 14.6136 21.2388 15.8268C20.7362 17.0401 19.9997 18.1425 19.0711 19.0711C18.1425 19.9997 17.0401 20.7362 15.8268 21.2388C14.6136 21.7413 13.3132 22 12 22"
+                  stroke="white"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                />
+              </svg>
+            </div>
+          } @else {
+            Crear cuenta
+          }
+        </button>
+      }
+    </div>
+  </ng-template>
+</p-drawer>

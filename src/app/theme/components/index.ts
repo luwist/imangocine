@@ -4,5 +4,6 @@ export * from './datatable-present';
 export * from './drawer-present';
 export * from './inputtext-present';
 export * from './menu-present';
+export * from './select-present';
 export * from './selectbutton-present';
 export * from './textarea-present';

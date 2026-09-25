@@ -7,6 +7,7 @@ import {
   DrawerPreset,
   InputTextPreset,
   SelectButtonPreset,
+  SelectPreset,
   TextareaPreset,
 } from './components';
 
@@ -22,5 +23,6 @@ export const CustomPresent = definePreset(Aura, {
     datatable: DataTablePreset,
     textarea: TextareaPreset,
     selectbutton: SelectButtonPreset,
+    select: SelectPreset,
   },
 });
