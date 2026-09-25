@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, computed, inject, signal } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Showtime } from '@app/services';
+import { CheckoutSummary, Showtime } from '@app/services';
 
 const LANGUAGE_LABELS: Record<any['language'], string> = {
   original: 'Original',
@@ -19,14 +19,13 @@ export class ShowtimeStep {
   private _route = inject(ActivatedRoute);
   private _router = inject(Router);
   private _showtimeService = inject(Showtime);
+  private _checkoutSummaryService = inject(CheckoutSummary);
 
   protected readonly showtimes = signal<any[]>([]);
   protected readonly selectedDate = signal<string | null>(null);
 
   protected readonly dateOptions = computed<any[]>(() => {
     const a = this.buildDateOptions();
-
-    console.log(a);
 
     return a;
   });
@@ -43,8 +42,6 @@ export class ShowtimeStep {
       map.set(label, [...(map.get(label) ?? []), showtime]);
     }
 
-    console.log(Array.from(map, ([label, showtimes]) => ({ label, showtimes })));
-
     return Array.from(map, ([label, showtimes]) => ({ label, showtimes }));
   });
 
@@ -54,8 +51,6 @@ export class ShowtimeStep {
 
     const showtimes = await this._showtimeService.getUpcomingByMovieId(movieId);
     this.showtimes.set(showtimes);
-
-    console.log(this.showtimes());
 
     const options = this.buildDateOptions();
 
@@ -67,13 +62,7 @@ export class ShowtimeStep {
   }
 
   protected async selectShowtime(showtime: any) {
-    console.log(showtime);
-
-    await this._router.navigate(['../seats'], {
-      relativeTo: this._route,
-      queryParams: { showtime: showtime.id },
-      queryParamsHandling: 'merge',
-    });
+    this._checkoutSummaryService.setShowtime(showtime);
   }
 
   private buildGroupLabel(showtime: any): string {
@@ -95,14 +84,12 @@ export class ShowtimeStep {
       timeZone: 'America/Argentina/Buenos_Aires',
     });
 
-    console.log(this.showtimes());
-
     const availableDates = Array.from(
       new Set(this.showtimes().map((s) => s.starts_at.slice(0, 10))),
     ).sort();
 
     return availableDates.map((value, index) => {
-      const date = new Date(`${value}T12:00:00`); // mediodía evita saltos de día por huso horario
+      const date = new Date(`${value}T12:00:00`);
       let label: string;
       if (index === 0) label = 'Hoy';
       else if (index === 1) label = 'Mañana';

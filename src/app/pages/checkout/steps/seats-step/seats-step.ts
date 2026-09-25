@@ -1,6 +1,6 @@
 import { Component, signal, computed, inject } from '@angular/core';
 import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
-import { Room } from '@app/services';
+import { CheckoutSummary, Room } from '@app/services';
 import { MessageService } from '@openng/optimus-ui/api';
 import { ButtonModule } from '@openng/optimus-ui/button';
 import { ToastModule } from '@openng/optimus-ui/toast';
@@ -29,6 +29,7 @@ export class SeatsStep {
   private _route = inject(ActivatedRoute);
   private _router = inject(Router);
   private _roomService = inject(Room);
+  private _checkoutSummaryService = inject(CheckoutSummary);
 
   private _occupiedSeats = signal<string[]>([]);
 
@@ -59,6 +60,8 @@ export class SeatsStep {
       this.selectedSeats.set(current.filter((code) => code !== seat.code));
       this.limitReached.set(false);
 
+      this._checkoutSummaryService.setSeats(this.selectedSeats());
+
       this._buildRows();
 
       return;
@@ -72,6 +75,9 @@ export class SeatsStep {
     }
 
     this.selectedSeats.set([...current, seat.code]);
+
+    this._checkoutSummaryService.setSeats(this.selectedSeats());
+
     this._buildRows();
   }
 

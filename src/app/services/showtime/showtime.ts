@@ -45,12 +45,8 @@ export class Showtime {
       .from(this._tableName)
       .select(
         `
-        id,
-        starts_at,
-        format,
-        language,
-        price,
-        room:rooms ( id, name )
+        *,
+        room:rooms (id, name)
       `,
       )
       .eq('movie_id', movieId)

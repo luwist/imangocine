@@ -1,13 +1,13 @@
 import { Location } from '@angular/common';
 import { Component, inject, signal } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Login } from '@app/components/login/login';
+import { Auth } from '@app/components';
 import { Movie } from '@app/services';
 import { BreadcrumbModule } from '@openng/optimus-ui/breadcrumb';
 import { ButtonModule } from '@openng/optimus-ui/button';
 
 @Component({
-  imports: [BreadcrumbModule, ButtonModule, Login],
+  imports: [BreadcrumbModule, ButtonModule, Auth],
   selector: 'app-topbar',
   styleUrl: './topbar.scss',
   templateUrl: './topbar.html',

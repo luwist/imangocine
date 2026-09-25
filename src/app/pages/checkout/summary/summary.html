@@ -1,0 +1,143 @@
+<aside class="summary">
+  @if (checkoutSummary$ | async; as summary) {
+    <h2 class="summary__title">Tu carrito</h2>
+
+    <div class="summary__movie">
+      <img class="summary__poster" [src]="summary.movie.poster" />
+
+      <div class="summary__info">
+        <span class="summary__title-movie">{{ summary.movie.title }}</span>
+
+        <div class="summary__badges">
+          <span class="summary__badge">{{ summary.movie.released | date: 'yyyy' }}</span>
+
+          <span class="summary__badge">{{ summary.movie.duration | minuteToHours }}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="summary__section">
+      <p class="summary__label">Sala, día y horario</p>
+
+      <div class="summary__row">
+        <div class="summary__icon">
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M8 2v3m8-3v3M3.5 9.09h17m.5-.59V17c0 3-1.5 5-5 5H8c-3.5 0-5-2-5-5V8.5c0-3 1.5-5 5-5h8c3.5 0 5 2 5 5"
+              stroke="#fff"
+              stroke-width="1.5"
+              stroke-miterlimit="10"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+            <path
+              d="M15.694 13.7h.01m-.01 3h.01m-3.709-3h.01m-.01 3h.01m-3.711-3h.009m-.009 3h.009"
+              stroke="#fff"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </div>
+
+        @if (summary.showtime) {
+          <div class="summary__wrapper">
+            <p class="summary__value">{{ summary.showtime.room.name }}</p>
+            <p class="summary__hint">
+              {{ summary.showtime.starts_at | date: 'longDate' }} •
+              {{ summary.showtime.starts_at | date: 'shortTime' }}
+            </p>
+          </div>
+        } @else {
+          <p class="summary__hint">No has seleccionado el día y horario</p>
+        }
+      </div>
+    </div>
+
+    <div class="summary__section">
+      <p class="summary__label">Asientos ({{ summary.seats.length }})</p>
+
+      <div class="summary__row">
+        <div class="summary__icon">
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M3.98 22.75c-.41 0-.75-.34-.75-.75v-2c0-.41.34-.75.75-.75s.75.34.75.75v2c0 .41-.34.75-.75.75m16.02 0c-.41 0-.75-.34-.75-.75v-2c0-.41.34-.75.75-.75s.75.34.75.75v2c0 .41-.34.75-.75.75m0-10.01c-.41 0-.75-.34-.75-.75V5.97c0-1.79-1.46-3.25-3.25-3.25H7.98c-1.79 0-3.25 1.46-3.25 3.25v6.01c0 .41-.34.75-.75.75s-.75-.34-.75-.75V5.97a4.76 4.76 0 0 1 4.75-4.75H16c2.62 0 4.75 2.13 4.75 4.75v6.01c0 .41-.34.75-.75.75z"
+              fill="#fff"
+            />
+            <path
+              d="M5.98 16.74h-2c-1.52 0-2.75-1.24-2.75-2.75s1.24-2.75 2.75-2.75h2c1.52 0 2.75 1.24 2.75 2.75s-1.24 2.75-2.75 2.75m-2-4.01a1.25 1.25 0 0 0 0 2.5h2a1.25 1.25 0 0 0 0-2.5zM20 16.74h-2c-1.52 0-2.75-1.24-2.75-2.75s1.24-2.75 2.75-2.75h2c1.52 0 2.75 1.24 2.75 2.75s-1.24 2.75-2.75 2.75m-2-4.01a1.25 1.25 0 0 0 0 2.5h2a1.25 1.25 0 0 0 0-2.5z"
+              fill="#fff"
+            />
+            <path
+              d="M20.5 20.75H3.48c-1.24 0-2.25-1.01-2.25-2.25v-1c0-1.24 1.01-2.25 2.25-2.25H20.5c1.24 0 2.25 1.01 2.25 2.25v1c0 1.24-1.01 2.25-2.25 2.25M3.48 16.74c-.42 0-.75.34-.75.75v1c0 .42.34.75.75.75H20.5c.42 0 .75-.34.75-.75v-1c0-.42-.34-.75-.75-.75z"
+              fill="#fff"
+            />
+          </svg>
+        </div>
+
+        @if (summary.seats.length > 0) {
+          <p class="summary__value">{{ summary.seats.join(', ') }}</p>
+        } @else {
+          <p class="summary__hint">No has seleccionado tus asientos</p>
+        }
+      </div>
+    </div>
+
+    <div class="summary__section">
+      <p class="summary__label">Alimento</p>
+
+      <div class="summary__row">
+        <div class="summary__icon">
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M12 18.62c-3.65 0-6.62-2.97-6.62-6.62S8.35 5.38 12 5.38s6.62 2.97 6.62 6.62-2.97 6.62-6.62 6.62m0-11.74c-2.83 0-5.12 2.3-5.12 5.12s2.3 5.12 5.12 5.12 5.12-2.3 5.12-5.12-2.3-5.12-5.12-5.12"
+              fill="#fff"
+            />
+            <path
+              d="M5.95 22.75c-.35 0-.69-.14-.94-.39l-3.38-3.38a1.325 1.325 0 0 1 .63-2.23l5.33-1.26c.25-.06.52.02.7.2s.26.45.2.7l-1.26 5.33c-.11.47-.46.84-.93.97-.12.03-.24.05-.36.05zm-3.03-4.6 2.93 2.93.91-3.84zm13.29-9.61a.75.75 0 0 1-.73-.92l1.26-5.34c.11-.47.46-.84.93-.97.46-.13.96 0 1.3.34l3.38 3.38a1.325 1.325 0 0 1-.63 2.23l-5.34 1.26c-.06.01-.12.02-.17.02m1.93-5.62-.91 3.86 3.86-.91zm-.27 9.83H6.13c-.41 0-.75-.34-.75-.75s.34-.75.75-.75h11.75c.41 0 .75.34.75.75s-.34.75-.75.75z"
+              fill="#fff"
+            />
+          </svg>
+        </div>
+
+        @if (foodItems().length) {
+          @for (item of foodItems(); track item.id) {
+            <div class="summary__food-row">
+              <span class="summary__value">{{ item.quantity }}x {{ item.name }}</span>
+              <span class="summary__value">{{ item.price * item.quantity | currency: 'ARS' }}</span>
+            </div>
+          }
+        } @else {
+          <p class="summary__hint">No has agregado alimentos a tu pedido</p>
+        }
+      </div>
+    </div>
+
+    <div class="summary__total">
+      <span class="summary__total-label">Total</span>
+      <span class="summary__total-value">{{ total() | currency: 'ARS' }}</span>
+    </div>
+
+    <div class="summary__footer">
+      <button pButton class="summary__button" (click)="onContinue()">Continuar</button>
+    </div>
+  }
+</aside>
