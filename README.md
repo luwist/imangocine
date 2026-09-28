@@ -302,14 +302,18 @@ erDiagram
 
 <img src="./public/images/movie-detail.png" />
 
-### Elección de dia y horario
+### Selección de dia y horario
 
 <img src="./public/images/checkout-showtime.png" />
 
-### Elección de asientos
+### Selección de asientos
 
 <img src="./public/images/checkout-seats.png" />
 
-### Elección de comida
+### Selección de comida
 
 <img src="./public/images/checkout-food.png" />
+
+### Pago
+
+<img src="./public/images/checkout-pay.png" />
