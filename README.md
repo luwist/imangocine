@@ -317,3 +317,7 @@ erDiagram
 ### Pago
 
 <img src="./public/images/checkout-pay.png" />
+
+### Listado de películas
+
+<img src="./public/images/movie-list.png" />
