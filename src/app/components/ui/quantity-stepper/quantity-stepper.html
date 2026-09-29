@@ -1,0 +1,65 @@
+@if (quantity() === 0) {
+  <button
+    type="button"
+    class="quantity-stepper__add"
+    [attr.aria-label]="'Agregar ' + label()"
+    (click)="increase.emit()"
+  >
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path
+        d="M5 10h10m-5 5V5"
+        stroke="#fff"
+        stroke-width="1.25"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+    </svg>
+  </button>
+} @else {
+  <div class="quantity-stepper">
+    <button
+      type="button"
+      class="quantity-stepper__btn"
+      aria-label="Quitar uno"
+      (click)="decrease.emit()"
+    >
+      <svg
+        width="20"
+        height="20"
+        viewBox="0 0 20 20"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M15 10.625H5A.63.63 0 0 1 4.375 10 .63.63 0 0 1 5 9.375h10a.63.63 0 0 1 .625.625.63.63 0 0 1-.625.625"
+          fill="#fff"
+        />
+      </svg>
+    </button>
+
+    <span class="quantity-stepper__value">{{ quantity() }}</span>
+
+    <button
+      type="button"
+      class="quantity-stepper__btn"
+      aria-label="Agregar uno más"
+      (click)="increase.emit()"
+    >
+      <svg
+        width="20"
+        height="20"
+        viewBox="0 0 20 20"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M5 10h10m-5 5V5"
+          stroke="#fff"
+          stroke-width="1.25"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </svg>
+    </button>
+  </div>
+}

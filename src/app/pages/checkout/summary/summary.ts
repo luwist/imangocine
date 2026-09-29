@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, input, signal } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { MinuteToHoursPipe } from '@app/pipes';
 import { CheckoutNavigation, CheckoutSummary } from '@app/services';
 import { ButtonModule } from '@openng/optimus-ui/button';
@@ -11,18 +11,16 @@ import { ButtonModule } from '@openng/optimus-ui/button';
   templateUrl: './summary.html',
 })
 export class Summary {
-  movie = input<any>();
-  showtime = signal<any>(null);
-  seats = signal<any[]>([]);
-  foodItems = signal<any[]>([]);
-  total = signal<any>(null);
+  private readonly _summary = inject(CheckoutSummary);
+  private readonly _navigation = inject(CheckoutNavigation);
 
-  private _checkoutSummaryService = inject(CheckoutSummary);
-  private _checkoutNavigationService = inject(CheckoutNavigation);
+  readonly state = this._summary.state;
+  readonly total = this._summary.total;
+  readonly continueLabel = this._navigation.continueLabel;
+  readonly submitting = this._navigation.submitting;
+  readonly canContinue = this._navigation.canContinue;
 
-  checkoutSummary$ = this._checkoutSummaryService.checkoutSummary$;
-
-  async onContinue() {
-    await this._checkoutNavigationService.continue();
+  onContinue(): Promise<void> {
+    return this._navigation.continue();
   }
 }

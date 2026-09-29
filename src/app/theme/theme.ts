@@ -9,6 +9,7 @@ import {
   SelectButtonPreset,
   SelectPreset,
   TextareaPreset,
+  ToastPreset,
 } from './components';
 
 export const CustomPresent = definePreset(Aura, {
@@ -24,5 +25,6 @@ export const CustomPresent = definePreset(Aura, {
     textarea: TextareaPreset,
     selectbutton: SelectButtonPreset,
     select: SelectPreset,
+    toast: ToastPreset,
   },
 });

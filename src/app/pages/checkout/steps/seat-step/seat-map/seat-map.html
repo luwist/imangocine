@@ -1,0 +1,41 @@
+<div class="seat-map">
+  <div class="seat-map__screen">
+    <svg
+      width="1308"
+      height="29"
+      viewBox="0 0 1308 29"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M1308 29V17S909.618 0 654 0 0 17 0 17v12s392.4-17 654-17c250.922 0 654 17 654 17"
+        fill="#1d51fe"
+        fill-opacity=".3"
+      />
+    </svg>
+
+    <span class="seat-map__screen-label">Pantalla</span>
+  </div>
+
+  <div class="seat-map__grid">
+    @for (seatRow of rows(); track seatRow.row) {
+      <div class="seat-map__row" [class.seat-map__row--gap-after]="seatRow.row === 'J'">
+        <span class="seat-map__row-label">{{ seatRow.row }}</span>
+
+        @for (block of seatRow.blocks; track $index) {
+          <div
+            class="seat-map__block"
+            [class.seat-map__block--side]="$index === 0 || $index === 2"
+            [class.seat-map__block--center]="$index === 1"
+          >
+            @for (seat of block; track seat.code) {
+              <app-seat [seat]="seat" (seatClick)="seatToggle.emit($event)" />
+            }
+          </div>
+        }
+
+        <span class="seat-map__row-label">{{ seatRow.row }}</span>
+      </div>
+    }
+  </div>
+</div>

@@ -2,13 +2,13 @@
   <h1 class="container__title">Nueva Película</h1>
 </div>
 
-<form [formGroup]="form" (submit)="onCreate()">
+<form [formGroup]="form">
   <div class="content">
     <div class="left">
       <div class="field">
         <label class="field__label">Poster</label>
 
-        <app-poster-upload />
+        <app-poster-upload (fileChange)="onPosterSelected($event)" />
       </div>
     </div>
 
@@ -67,7 +67,12 @@
         <div class="field">
           <label class="field__label">Estreno</label>
 
-          <input type="date" pInputText placeholder="Estreno" formControlName="released" />
+          <input
+            pInputText
+            formControlName="released"
+            pInputMask="99/99/9999"
+            placeholder="mm/dd/yyyy"
+          />
         </div>
 
         <div class="field">
@@ -107,6 +112,6 @@
 
   <div class="footer">
     <button pButton [text]="true">Cancelar</button>
-    <button pButton>Guardar</button>
+    <button pButton (click)="onCreate()">Guardar</button>
   </div>
 </form>

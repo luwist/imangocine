@@ -22,4 +22,8 @@ export class Checkout {
 
     this._checkoutSummaryService.setMovie(movie);
   }
+
+  ngOnDestroy() {
+    this._checkoutSummaryService.reset();
+  }
 }

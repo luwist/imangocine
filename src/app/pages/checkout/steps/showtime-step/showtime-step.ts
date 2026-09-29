@@ -22,7 +22,9 @@ export class ShowtimeStep {
   private _checkoutSummaryService = inject(CheckoutSummary);
 
   protected readonly showtimes = signal<any[]>([]);
-  protected readonly selectedDate = signal<string | null>(null);
+
+  selectedTime = signal<string>('');
+  selectedDay = signal<string>('');
 
   protected readonly dateOptions = computed<any[]>(() => {
     const a = this.buildDateOptions();
@@ -31,7 +33,7 @@ export class ShowtimeStep {
   });
 
   protected readonly groupsForSelectedDate = computed<any[]>(() => {
-    const date = this.selectedDate();
+    const date = this.selectedDay();
     if (!date) return [];
 
     const showtimesForDate = this.showtimes().filter((s) => s.starts_at.startsWith(date));
@@ -47,22 +49,26 @@ export class ShowtimeStep {
 
   async ngOnInit(): Promise<void> {
     const movieId = this._route.snapshot.queryParamMap.get('movie');
+
     if (!movieId) return;
 
     const showtimes = await this._showtimeService.getUpcomingByMovieId(movieId);
+
     this.showtimes.set(showtimes);
 
     const options = this.buildDateOptions();
 
-    if (options.length) this.selectedDate.set(options[0].value);
+    if (options.length) this.selectedDay.set(options[0].value);
   }
 
-  protected selectDate(date: string): void {
-    this.selectedDate.set(date);
-  }
+  onSelectedTime(showtime: any) {
+    this.selectedTime.set(showtime.id);
 
-  protected async selectShowtime(showtime: any) {
     this._checkoutSummaryService.setShowtime(showtime);
+  }
+
+  onSelectedDate(date: any) {
+    this.selectedDay.set(date);
   }
 
   private buildGroupLabel(showtime: any): string {

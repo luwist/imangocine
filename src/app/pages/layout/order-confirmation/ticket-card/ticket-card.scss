@@ -1,0 +1,99 @@
+:host {
+  display: block;
+  width: 100%;
+  max-width: 645px;
+}
+
+.ticket-card {
+  display: flex;
+  gap: 56px;
+  padding: 24px;
+  background-color: #1D1D1D;
+  border: 1px solid #252527;
+  border-radius: 16px;
+
+  &__qr {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    flex-shrink: 0;
+    width: 176px;
+  }
+  
+  &__qr-image {
+    width: 132px;
+    height: 132px;
+    aspect-ratio: 1;
+    background-color: #fff;
+  }
+
+  &__download {
+    width: 100%;
+  }
+
+  &__content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  &__header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  &__poster {
+    width: 48px;
+    height: 74px;
+    border-radius: 8px;
+    object-fit: cover;
+    flex-shrink: 0;
+  }
+
+  &__movie {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  &__title {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 700;
+  }
+
+  &__badges {
+    display: flex;
+    gap: 8px;
+  }
+
+  &__badge {
+    padding: 3px 12px;
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: 500;
+    border-radius: 8px;
+    background-color: #28272A;
+  }
+
+  &__details {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+    margin: 0;
+  }
+
+  &__label {
+    font-size: 14px;
+    color: #888888;
+  }
+
+  &__value {
+    margin-top: 4px;
+    font-size: 14px;
+    font-weight: 600;
+  }
+}

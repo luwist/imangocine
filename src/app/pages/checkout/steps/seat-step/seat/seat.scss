@@ -1,0 +1,28 @@
+.seat {
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+  border-radius: 6px;
+  border: 1px solid #252527;
+  background: transparent;
+  color: #fff;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color 0.15s ease;
+
+  &:hover:not(:disabled) { border-color: #1D51FE; }
+  &--vip { border-color: #FFC312; }
+  &--accessible { border-color: #252527; }
+  &--selected { background: #1D51FE; border-color: #1D51FE; }
+  &--occupied {
+    background: #1D1D1D;
+    border-color: #1D1D1D;
+    cursor: not-allowed;
+  }
+}

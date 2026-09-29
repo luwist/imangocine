@@ -66,7 +66,11 @@ export class Auth implements OnInit {
     this.eyeColors.set(eyeColors);
 
     const { data } = this._supabaseService.authChanges((event, session) => {
-      this.currentUser.set(session?.user ?? null);
+      if (session?.user.is_anonymous) {
+        this.currentUser.set(null);
+      } else {
+        this.currentUser.set(session?.user);
+      }
     });
 
     this._destroyRef.onDestroy(() => {
@@ -84,6 +88,9 @@ export class Auth implements OnInit {
 
   openDrawer(): void {
     this.visible.set(true);
+
+    this.loginForm.reset();
+    this.registerForm.reset();
   }
 
   goToRegister(): void {
@@ -123,8 +130,6 @@ export class Auth implements OnInit {
 
       if (user.user.user_metadata['role'] == 'admin') {
         await this._router.navigateByUrl('/admin');
-      } else {
-        await this._router.navigateByUrl('/');
       }
     } catch {
     } finally {

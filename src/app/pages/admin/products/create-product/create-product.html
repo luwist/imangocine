@@ -16,10 +16,35 @@
     />
   </svg>
 
-  Nuevo combo
+  Nuevo producto
 </button>
 
-<p-drawer [(visible)]="visible" header="Nuevo producto" [closable]="false" position="right">
+<p-drawer [(visible)]="visible" [closable]="false" position="right">
+  <ng-template #header>
+    <div class="drawer__header">
+      <span class="drawer__title">Nuevo producto</span>
+
+      <p-button styleClass="p-button-icon-only" variant="text" [rounded]="true" (onClick)="close()">
+        <svg
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M16.776 8.288 8.29 16.773c-.29.29-.77.29-1.06 0a.756.756 0 0 1 0-1.06l8.485-8.486c.29-.29.77-.29 1.06 0s.29.77 0 1.06"
+            fill="#fff"
+          />
+          <path
+            d="M16.776 16.773a.756.756 0 0 1-1.061 0L7.23 8.288a.755.755 0 0 1 0-1.061c.29-.29.77-.29 1.06 0l8.486 8.485c.29.29.29.771 0 1.06"
+            fill="#fff"
+          />
+        </svg>
+      </p-button>
+    </div>
+  </ng-template>
+
   <div class="fields">
     <div class="field">
       <label class="field__label">Nombre</label>
@@ -36,7 +61,26 @@
     <div class="field">
       <label class="field__label">Categoria</label>
 
-      <p-select [options]="productCategories()" optionLabel="name" placeholder="Select a City" />
+      <p-select [options]="productCategories()" placeholder="Categoria">
+        <ng-template #dropdownicon>
+          <svg
+            width="20"
+            height="20"
+            viewBox="0 0 20 20"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M16.6004 7.4585L11.1671 12.8918C10.5254 13.5335 9.47541 13.5335 8.83374 12.8918L3.40039 7.4585"
+              stroke="white"
+              stroke-width="1.25"
+              stroke-miterlimit="10"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </ng-template>
+      </p-select>
     </div>
 
     <div class="field">
@@ -45,17 +89,32 @@
       <textarea pTextarea [autoResize]="true" placeholder="Descripción"></textarea>
     </div>
   </div>
+
   <ng-template #footer>
-    <div class="flex items-center gap-2">
-      <button pButton label="Account" icon="pi pi-user" class="w-full" outlined></button>
-      <button
-        pButton
-        label="Logout"
-        icon="pi pi-sign-out"
-        class="w-full"
-        severity="danger"
-        text
-      ></button>
+    <div class="drawer__footer">
+      <button pButton [text]="true" class="drawer__button">Cancelar</button>
+      <button pButton class="drawer__button">
+        @if (isLoading()) {
+          <div class="spinner">
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M22 12C22 13.3132 21.7413 14.6136 21.2388 15.8268C20.7362 17.0401 19.9997 18.1425 19.0711 19.0711C18.1425 19.9997 17.0401 20.7362 15.8268 21.2388C14.6136 21.7413 13.3132 22 12 22"
+                stroke="white"
+                stroke-width="1.5"
+                stroke-linecap="round"
+              />
+            </svg>
+          </div>
+        } @else {
+          Guardar
+        }
+      </button>
     </div>
   </ng-template>
 </p-drawer>

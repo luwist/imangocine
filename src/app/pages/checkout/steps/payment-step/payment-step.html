@@ -1,1 +1,54 @@
-<p>payment-step works!</p>
+<section class="payment-step">
+  <h2 class="payment-step__title">Pago</h2>
+
+  <form class="fields" [formGroup]="form">
+    <div class="fields__row">
+      <div class="field">
+        <label class="field__label">Nombre</label>
+        <input type="text" pInputText formControlName="firstName" placeholder="Nombre" />
+
+        @if (
+          getFormControl('firstName')?.invalid &&
+          (getFormControl('firstName')?.touched || getFormControl('firstName')?.dirty)
+        ) {
+          @if (getFormControl('firstName')?.hasError('required')) {
+            <p class="field__error">El campo es obligatorio.</p>
+          }
+        }
+      </div>
+
+      <div class="field">
+        <label class="field__label">Apellido</label>
+        <input type="text" pInputText formControlName="lastName" placeholder="Apellido" />
+
+        @if (
+          getFormControl('lastName')?.invalid &&
+          (getFormControl('lastName')?.touched || getFormControl('lastName')?.dirty)
+        ) {
+          @if (getFormControl('lastName')?.hasError('required')) {
+            <p class="field__error">El campo es obligatorio.</p>
+          }
+        }
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="field__label">Correo electrónico</label>
+
+      <input type="email" pInputText formControlName="email" placeholder="Correo electrónico" />
+
+      @if (
+        getFormControl('email')?.invalid &&
+        (getFormControl('email')?.touched || getFormControl('email')?.dirty)
+      ) {
+        @if (getFormControl('email')?.hasError('required')) {
+          <p class="field__error">El campo es obligatorio.</p>
+        }
+
+        @if (getFormControl('email')?.hasError('email')) {
+          <p class="field__error">Ingresá un correo electrónico válido.</p>
+        }
+      }
+    </div>
+  </form>
+</section>

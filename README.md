@@ -320,4 +320,16 @@ erDiagram
 
 ### Listado de películas
 
-<img src="./public/images/movie-list.png" />
+<img src="./public/images/movies.png" />
+
+### Creación de película
+
+<img src="./public/images/create-movie.png" />
+
+### Listado de productos
+
+<img src="./public/images/products.png" />
+
+### Creación de producto
+
+<img src="./public/images/create-product.png" />

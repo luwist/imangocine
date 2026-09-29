@@ -3,6 +3,8 @@ export const TextareaPreset = {
     background: '#1D1D1D',
     borderColor: '#252527',
     borderRadius: '12px',
+    color: '#FFFFFF',
+    placeholderColor: '#FFFFFF',
     paddingX: '16px',
     paddingY: '18px',
     invalidBorderColor: '#FE1D3B',

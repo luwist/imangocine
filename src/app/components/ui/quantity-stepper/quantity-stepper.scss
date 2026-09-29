@@ -1,0 +1,53 @@
+:host {
+  display: inline-block;
+}
+
+.quantity-stepper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px;
+  border-radius: 999px;
+  background-color: #1D1D1D;
+
+  &__btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border: none;
+    border-radius: 50%;
+    background: transparent;
+    color: #fff;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #28272a;
+    }
+  }
+
+  &__value {
+    // min-width: 24px;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 600;
+  }
+
+  &__add {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    border: none;
+    border-radius: 50%;
+    background-color: #1d1d1d;
+    color: #fff;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #28272a;
+    }
+  }
+}

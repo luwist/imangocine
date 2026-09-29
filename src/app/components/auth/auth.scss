@@ -26,33 +26,18 @@ app-avatar-uploader {
   width: 432px;
 }
 
-.drawer__header {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-
-  .drawer__title {
-    font-size: 16px;
-    font-weight: 600;
-  }
-}
-
 .drawer__greeting {
   font-size: 20px;
   font-weight: 700;
   margin-bottom: 48px;
 }
 
-.drawer__button {
-  width: 100%;
-
-  &.drawer__button--login {
-    margin-top: 48px;
-  }
+.drawer__button--login {
+  margin-top: 48px;
 }
 
 .drawer__hint {
+  width: 100%;
   text-align: center;
   font-size: 14px;
   font-weight: 500;

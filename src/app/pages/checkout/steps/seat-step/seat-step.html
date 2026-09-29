@@ -1,0 +1,7 @@
+<p-toast position="bottom-center" />
+
+<div class="seats-step">
+  <app-seat-map [rows]="rows()" (seatToggle)="onSeatToggle($event)" />
+
+  <app-seat-legend />
+</div>

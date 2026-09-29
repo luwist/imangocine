@@ -5,7 +5,10 @@ import { TextareaModule } from '@openng/optimus-ui/textarea';
 import { SelectButtonModule } from '@openng/optimus-ui/selectbutton';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { PosterUpload } from '@app/components';
-import { Genre } from '@app/services';
+import { Genre, Movie, MovieGenre, Storage } from '@app/services';
+import { InputMaskModule } from '@openng/optimus-ui/inputmask';
+import { parseDate } from '@app/utils';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   imports: [
@@ -15,13 +18,21 @@ import { Genre } from '@app/services';
     TextareaModule,
     SelectButtonModule,
     PosterUpload,
+    InputMaskModule,
   ],
   selector: 'app-create-movie',
   styleUrl: './create-movie.scss',
   templateUrl: './create-movie.html',
 })
 export class CreateMovie implements OnInit {
+  private _router = inject(Router);
+
   private _genreService = inject(Genre);
+
+  private _movieRepository = inject(Movie);
+  private _movieGenreRepository = inject(MovieGenre);
+
+  private _storageService = inject(Storage);
 
   readonly ageRatingOptions = [
     { label: 'ATP', value: 0 },
@@ -42,20 +53,6 @@ export class CreateMovie implements OnInit {
       nonNullable: true,
       validators: Validators.required,
     }),
-    // poster: this.fb.control<File | null>(null, Validators.required),
-    // title: ['', [Validators.required, Validators.maxLength(120)]],
-    // synopsis: ['', [Validators.required, Validators.maxLength(400)]],
-    // duration: this.fb.control<number | null>(null, [Validators.required, Validators.min(1), Validators.max(500)]),
-    // releaseDate: this.fb.control<Date | null>(null, Validators.required),
-    // ageRating: this.fb.control<number>(0, Validators.required),
-    // genres: this.fb.control<string[]>([], Validators.required),
-    // presale: this.fb.group({
-    //   enabled: false,
-    //   price: this.fb.control<number | null>({ value: null, disabled: true }, [
-    //     Validators.required,
-    //     Validators.min(1),
-    //   ]),
-    // }),
   });
 
   async ngOnInit() {
@@ -83,13 +80,61 @@ export class CreateMovie implements OnInit {
     return this.form.get(controlName);
   }
 
-  selectPoster() {}
+  onPosterSelected(file: any) {
+    this.form.patchValue({
+      poster: file,
+    });
+  }
+
+  private _createSlug(slug: string | null) {
+    if (!slug) return;
+
+    return slug
+      .toLowerCase()
+      .replace(/ñ/g, 'n')
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/^-+|-+$/g, '');
+  }
 
   async onCreate() {
     try {
-      const data = this.form.getRawValue();
+      console.log('qwewqe');
+      console.log(this.form.invalid);
+
+      if (this.form.invalid) return this.form.markAllAsTouched();
+
+      const data: any = this.form.getRawValue();
+
+      const poster = await this._storageService.uploadImage(data.poster);
+
+      console.log(poster);
+
+      const movie = await this._movieRepository.add({
+        title: data.title,
+        synopsis: data.synopsis,
+        poster: poster,
+        duration: data.duration,
+        age_restriction: data.ageRating,
+        released: parseDate(data.released),
+        slug: this._createSlug(data.title),
+      });
+
+      console.log(movie);
+
+      const genresMovie = data.genres.map((x: any) => {
+        return {
+          movie_id: movie.id,
+          genre_id: x,
+        };
+      });
+
+      await this._movieGenreRepository.add(genresMovie);
 
       console.log(data);
+      console.log(genresMovie);
+      await this._router.navigate(['admin', 'movies']);
     } catch (error) {}
   }
 }

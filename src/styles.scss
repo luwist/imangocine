@@ -63,3 +63,24 @@ body {
     font-size: 20px;
   }
 }
+
+.drawer__header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  .drawer__title {
+    font-size: 16px;
+    font-weight: 600;
+  }
+}
+
+.drawer__button {
+  width: 100%;
+}
+
+.drawer__footer {
+  display: flex;
+  align-items: center;
+}

@@ -13,7 +13,7 @@ export const routes: Routes = [
       },
       {
         path: 'seats',
-        loadComponent: () => import('./steps/seats-step/seats-step').then((m) => m.SeatsStep),
+        loadComponent: () => import('./steps/seat-step/seat-step').then((m) => m.SeatStep),
       },
       {
         path: 'food',

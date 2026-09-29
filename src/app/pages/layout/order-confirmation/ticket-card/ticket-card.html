@@ -1,0 +1,75 @@
+<article class="ticket-card">
+  <div class="ticket-card__qr">
+    @if (qr.value(); as dataUrl) {
+      <img class="ticket-card__qr-image" [src]="dataUrl" alt="Código QR de la orden" />
+    } @else {
+      <div class="ticket-card__qr-image ticket-card__qr-image--loading"></div>
+    }
+
+    <button pButton class="ticket-card__download" (click)="download()">Descargar</button>
+  </div>
+
+  <div class="ticket-card__content">
+    @if (order()) {
+      <header class="ticket-card__header">
+        <img
+          class="ticket-card__poster"
+          [src]="order().showtimes.movies.poster"
+          [alt]="order().showtimes.movies.title"
+        />
+
+        <div class="ticket-card__movie">
+          <h2 class="ticket-card__title">{{ order().showtimes.movies.title }}</h2>
+
+          <div class="ticket-card__badges">
+            <span class="ticket-card__badge">{{
+              order().showtimes.movies.released | date: 'yyyy'
+            }}</span>
+            <span class="ticket-card__badge">{{
+              order().showtimes.movies.duration | minuteToHours
+            }}</span>
+            <span class="ticket-card__badge">
+              @switch (order().showtimes.language) {
+                @case ('original') {
+                  Original
+                }
+
+                @case ('subtitled') {
+                  Subtitulado
+                }
+
+                @case ('dubbed') {
+                  Doblado
+                }
+              }
+            </span>
+          </div>
+        </div>
+      </header>
+
+      <div class="ticket-card__details">
+        <div class="ticket-card__detail">
+          <div class="ticket-card__label">Sala</div>
+          <div class="ticket-card__value">{{ order().showtimes.rooms.name }}</div>
+        </div>
+
+        <div class="ticket-card__detail">
+          <div class="ticket-card__label">Asientos</div>
+          <div class="ticket-card__value">{{ seatCodes() }}</div>
+        </div>
+
+        <div class="ticket-card__detail">
+          <div class="ticket-card__label">Fecha</div>
+          <div class="ticket-card__value">
+            {{ order().showtimes.starts_at | date: "d 'de' MMMM" }}
+          </div>
+        </div>
+
+        <div class="ticket-card__detail">
+          <div class="ticket-card__label">Hora</div>
+          <div class="ticket-card__value">{{ order().showtimes.starts_at | date: 'HH:mm' }}</div>
+        </div>
+      </div>
+    }
+  </div>
+</article>

@@ -7,3 +7,4 @@ export * from './menu-present';
 export * from './select-present';
 export * from './selectbutton-present';
 export * from './textarea-present';
+export * from './toast-present';

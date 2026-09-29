@@ -1,3 +1,11 @@
+:host {
+  display: block;
+  position: sticky;
+  top: 0;
+  background-color: #151517;
+  z-index: 1000;
+}
+
 .checkout-topbar {
   width: 100%;
   max-width: 1680px;

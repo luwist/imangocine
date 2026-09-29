@@ -1,0 +1,35 @@
+.seat-legend {
+  flex-shrink: 0;
+  width: 100%;
+  min-height: 80px;
+  background: #151517;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+}
+
+.seat-legend__item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.seat-legend__swatch {
+  width: 24px;
+  height: 24px;
+  border-radius: 6px;
+  background-color: transparent;
+  border: 1px solid #252527;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &--vip { border-color: #FFC312; }
+  &--available { border-color: #252527; }
+  &--selected { background: #1D51FE; border-color: #1D51FE; }
+  &--occupied { background: #1D1D1D; border-color:#1D1D1D; }
+  &--accessible { border-color: #252527; }
+}

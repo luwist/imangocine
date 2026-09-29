@@ -23,6 +23,8 @@ export class Movies implements OnInit {
   async ngOnInit() {
     try {
       this.movies.set(await this._movieServices.getList());
+
+      console.log(this.movies());
     } finally {
       this.loading.set(false);
     }

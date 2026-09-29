@@ -1,0 +1,28 @@
+<article class="food-card" [class.food-card--soldout]="!combo().is_available">
+  <div class="food-card__image">
+    <img class="food-card__img" [src]="combo().image" [alt]="combo().name" />
+    @if (!combo().is_available) {
+      <span class="food-card__badge">Agotado</span>
+    }
+  </div>
+
+  <div class="food-card__body">
+    <h3 class="food-card__name">{{ combo().name }}</h3>
+    <p class="food-card__description">{{ combo().description }}</p>
+  </div>
+
+  <div class="food-card__footer">
+    <span class="food-card__price">
+      {{ combo().price | currency: 'ARS' }}
+    </span>
+
+    @if (combo().is_available) {
+      <app-quantity-stepper
+        [quantity]="quantity()"
+        [label]="combo().name"
+        (increase)="increase.emit(combo())"
+        (decrease)="decrease.emit(combo())"
+      />
+    }
+  </div>
+</article>

@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { SeatsStep } from './seats-step';
+import { QuantityStepper } from './quantity-stepper';
 
-describe('SeatsStep', () => {
-  let component: SeatsStep;
-  let fixture: ComponentFixture<SeatsStep>;
+describe('QuantityStepper', () => {
+  let component: QuantityStepper;
+  let fixture: ComponentFixture<QuantityStepper>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [SeatsStep],
+      imports: [QuantityStepper],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(SeatsStep);
+    fixture = TestBed.createComponent(QuantityStepper);
     component = fixture.componentInstance;
     await fixture.whenStable();
   });

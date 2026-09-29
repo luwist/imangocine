@@ -29,9 +29,6 @@ export class MovieDetail implements OnInit {
     const movie = await this._movieService.getBySlug(slug);
     const reviews = await this._reviewService.getListByMovieId(movie.id);
 
-    console.log(movie);
-    console.log(reviews);
-
     this.movie.set(movie);
     this.reviews.set(reviews);
     this.loading.set(false);

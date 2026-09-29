@@ -15,6 +15,11 @@ export const routes: Routes = [
         title: 'Movie Detail',
         loadComponent: () => import('./movie-detail/movie-detail').then((m) => m.MovieDetail),
       },
+      {
+        path: 'orders/:orderId/confirmation',
+        loadComponent: () =>
+          import('./order-confirmation/order-confirmation').then((m) => m.OrderConfirmation),
+      },
     ],
   },
 ];

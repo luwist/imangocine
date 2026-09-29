@@ -25,13 +25,18 @@ export class CreateProduct {
 
   productCategories = signal<any[]>([]);
 
-  visible: boolean = false;
+  visible = signal(false);
+  isLoading = signal(false);
 
   async ngOnInit() {
     this.productCategories.set(await this._productCategoryService.getList());
   }
 
+  close(): void {
+    this.visible.set(false);
+  }
+
   onOpen() {
-    this.visible = true;
+    this.visible.set(true);
   }
 }
